@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio Klasik - Nama Anda</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts for classic and elegant typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Custom styles to enhance the classic theme */
+        :root {
+            --bg-light: #fdfaf5; /* Warna krem lembut untuk light mode */
+            --bg-dark: #1a1a1a; /* Warna abu-abu sangat gelap untuk dark mode */
+            --text-light: #3d3d3d;
+            --text-dark: #d1d1d1;
+            --accent-light: #8c7a6b;
+            --accent-dark: #a89a8e;
+            --border-light: #e0d9d1;
+            --border-dark: #3a3a3a;
+        }
+
+        /* Menggunakan font Lora (serif) untuk heading dan Inter (sans-serif) untuk body */
+        .font-serif { font-family: 'Lora', serif; }
+        .font-sans { font-family: 'Inter', sans-serif; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-light);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .dark body {
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
+        }
+
+        /* Styling untuk elemen-elemen agar sesuai tema */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Lora', serif;
+        }
+
+        .ornamental-divider {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), var(--accent-light), rgba(0, 0, 0, 0));
+        }
+
+        .dark .ornamental-divider {
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), var(--accent-dark), rgba(0, 0, 0, 0));
+        }
+        
+        .nav-link {
+            position: relative;
+            color: var(--text-light);
+            text-decoration: none;
+        }
+
+        .dark .nav-link {
+            color: var(--text-dark);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 1px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--accent-light);
+            transform-origin: bottom right;
+            transition: transform 0.25s ease-out;
+        }
+
+        .dark .nav-link::after {
+            background-color: var(--accent-dark);
+        }
+
+        .nav-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+        
+        #scrollTopBtn {
+            background-color: var(--accent-light);
+            color: var(--bg-light);
+        }
+        .dark #scrollTopBtn {
+            background-color: var(--accent-dark);
+            color: var(--bg-dark);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="max-w-4xl mx-auto px-6 py-8 md:py-12">
+
+        <!-- Header: Nama, Navigasi, dan Theme Toggle -->
+        <header class="flex justify-between items-center mb-16 relative z-50">
+            <a href="#" class="text-xl md:text-2xl font-serif font-bold dark:text-white" style="color: var(--text-light);">
+                Nama Anda
+            </a>
+            
+            <div class="flex items-center space-x-4">
+                <nav class="hidden md:flex space-x-6 text-sm font-medium">
+                    <a href="#tentang" class="nav-link">Tentang</a>
+                    <a href="#karya" class="nav-link">Karya</a>
+                    <a href="#tulisan" class="nav-link">Tulisan</a>
+                    <a href="#kontak" class="nav-link">Kontak</a>
+                </nav>
+                <button id="theme-toggle" class="p-2 rounded-full focus:outline-none focus:ring-2 ring-offset-2" 
+                    style="background-color: var(--border-light); color: var(--text-light); border-color: var(--border-light)">
+                    <div class="dark:hidden" style="color: var(--text-light);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                    </div>
+                    <div class="hidden dark:block" style="color: var(--text-dark);">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+                    </div>
+                </button>
+                <!-- Hamburger Menu Button (Mobile Only) -->
+                <button id="menu-toggle" class="md:hidden p-2 rounded-md -mr-2">
+                    <svg id="menu-open-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                    <svg id="menu-close-icon" class="hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Mobile Menu (Full Screen Overlay) -->
+        <div id="mobile-menu" class="hidden fixed inset-0 z-40 flex flex-col items-center justify-center space-y-10 text-2xl" style="background-color: var(--bg-light);">
+            <div class="dark:bg-[var(--bg-dark)] w-full h-full flex flex-col items-center justify-center space-y-10">
+                <a href="#tentang" class="mobile-nav-link">Tentang</a>
+                <a href="#karya" class="mobile-nav-link">Karya</a>
+                <a href="#tulisan" class="mobile-nav-link">Tulisan</a>
+                <a href="#kontak" class="mobile-nav-link">Kontak</a>
+            </div>
+        </div>
+
+        <main>
+            <!-- Hero Section -->
+            <section class="text-center mb-20">
+                <h1 class="text-4xl md:text-6xl font-serif font-bold mb-4 leading-tight">
+                     Sebuah Narasi Digital
+                </h1>
+                <p class="text-lg md:text-xl max-w-2xl mx-auto" style="color: var(--accent-light);">
+                    <span class="dark:text-[var(--accent-dark)]">
+                        Selamat datang di ruang personal saya, tempat di mana ide, karya, dan cerita bertemu. Saya adalah [Jabatan Anda], dengan hasrat pada [Bidang Keahlian Anda].
+                    </span>
+                </p>
+            </section>
+            
+            <hr class="ornamental-divider my-20">
+
+            <!-- Tentang Saya -->
+            <section id="tentang" class="mb-20 scroll-mt-20">
+                <h2 class="text-3xl font-serif font-bold mb-8 text-center">Tentang Saya</h2>
+                <div class="md:flex md:space-x-12 items-center">
+                    <div class="md:w-1/3 mb-8 md:mb-0">
+                        <img src="https://placehold.co/400x400/e0d9d1/3d3d3d?text=Foto+Anda" alt="Foto Profil Anda" class="rounded-sm w-full h-auto shadow-md">
+                    </div>
+                    <div class="md:w-2/3 space-y-4 text-base leading-relaxed">
+                        <p>
+                            Perkenalkan, saya [Nama Lengkap Anda]. Selama lebih dari [X] tahun, saya telah menyelami dunia [Industri/Bidang Anda], berfokus pada [Spesialisasi]. Perjalanan saya dimulai dari [Cerita Singkat Awal Mula Karir/Pendidikan Anda].
+                        </p>
+                        <p>
+                            Bagi saya, [Bidang Keahlian Anda] bukan hanya sekadar pekerjaan, melainkan sebuah seni untuk memecahkan masalah dan menciptakan sesuatu yang bermakna. Saya percaya bahwa setiap detail kecil memiliki dampak besar.
+                        </p>
+                         <p>
+                            Di luar pekerjaan, saya gemar [Hobi atau Minat Anda], yang seringkali memberikan inspirasi baru dalam karya-karya saya.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <hr class="ornamental-divider my-20">
+
+            <!-- Karya Pilihan -->
+            <section id="karya" class="mb-20 scroll-mt-20">
+                <h2 class="text-3xl font-serif font-bold mb-12 text-center">Karya Pilihan</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <!-- Contoh Proyek 1 -->
+                    <div class="border rounded-sm p-5 transition-shadow hover:shadow-lg" style="border-color: var(--border-light);">
+                        <div class="dark:border-[var(--border-dark)]">
+                             <img src="https://placehold.co/600x400/e0d9d1/3d3d3d?text=Proyek+Satu" alt="Gambar Proyek 1" class="rounded-sm w-full h-auto mb-4">
+                            <h3 class="text-xl font-serif font-bold mb-2">Nama Proyek Satu</h3>
+                            <p class="text-sm mb-3" style="color: var(--accent-light);"><span class="dark:text-[var(--accent-dark)]">UI/UX Design, Web Development</span></p>
+                            <p class="text-base leading-relaxed">Deskripsi singkat mengenai proyek ini, tantangan yang dihadapi, dan solusi yang diberikan.</p>
+                        </div>
+                    </div>
+                    <!-- Contoh Proyek 2 -->
+                    <div class="border rounded-sm p-5 transition-shadow hover:shadow-lg" style="border-color: var(--border-light);">
+                        <div class="dark:border-[var(--border-dark)]">
+                             <img src="https://placehold.co/600x400/e0d9d1/3d3d3d?text=Proyek+Dua" alt="Gambar Proyek 2" class="rounded-sm w-full h-auto mb-4">
+                            <h3 class="text-xl font-serif font-bold mb-2">Nama Proyek Dua</h3>
+                            <p class="text-sm mb-3" style="color: var(--accent-light);"><span class="dark:text-[var(--accent-dark)]">Branding, Fotografi</span></p>
+                            <p class="text-base leading-relaxed">Deskripsi singkat mengenai proyek ini, tantangan yang dihadapi, dan solusi yang diberikan.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <hr class="ornamental-divider my-20">
+
+            <!-- Tulisan Terbaru -->
+            <section id="tulisan" class="mb-20 scroll-mt-20">
+                <h2 class="text-3xl font-serif font-bold mb-12 text-center">Tulisan Terbaru</h2>
+                <div class="space-y-8">
+                    <!-- Artikel 1 -->
+                    <div class="border-l-2 pl-6" style="border-color: var(--accent-light);">
+                         <div class="dark:border-[var(--accent-dark)]">
+                            <p class="text-sm mb-1" style="color: var(--accent-light);"><span class="dark:text-[var(--accent-dark)]">14 Oktober 2025</span></p>
+                            <h3 class="text-xl font-serif font-semibold mb-2">
+                                <a href="#" class="hover:underline">Judul Artikel Pertama yang Menarik Perhatian</a>
+                            </h3>
+                            <p class="text-base">Ringkasan singkat dari artikel. Beberapa kalimat pembuka untuk menarik pembaca agar mengklik dan membaca lebih lanjut...</p>
+                        </div>
+                    </div>
+                    <!-- Artikel 2 -->
+                    <div class="border-l-2 pl-6" style="border-color: var(--accent-light);">
+                        <div class="dark:border-[var(--accent-dark)]">
+                            <p class="text-sm mb-1" style="color: var(--accent-light);"><span class="dark:text-[var(--accent-dark)]">25 September 2025</span></p>
+                            <h3 class="text-xl font-serif font-semibold mb-2">
+                                <a href="#" class="hover:underline">Refleksi Tentang Desain dan Filosofi Klasik</a>
+                            </h3>
+                            <p class="text-base">Ringkasan singkat dari artikel. Beberapa kalimat pembuka untuk menarik pembaca agar mengklik dan membaca lebih lanjut...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+        
+        <!-- Footer -->
+        <footer class="text-center pt-10 mt-20 border-t" style="border-color: var(--border-light);">
+            <div class="dark:border-[var(--border-dark)]">
+                <div id="kontak" class="mb-6 scroll-mt-20">
+                    <p class="text-lg font-serif mb-4">Mari terhubung</p>
+                    <div class="flex justify-center space-x-6">
+                        <a href="#" aria-label="Email" class="dark:text-white" style="color: var(--text-light);"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></a>
+                        <a href="#" aria-label="LinkedIn" class="dark:text-white" style="color: var(--text-light);"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg></a>
+                        <a href="#" aria-label="Twitter" class="dark:text-white" style="color: var(--text-light);"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 1.4 3.3 4.9 3.3 9.7 0 .3 0 .7 0 1 0 4.2-3.1 9.2-9.2 9.2-1.8 0-3.4-.5-4.8-1.4A6.5 6.5 0 0 0 6 22c-3.1 0-5.7-1.1-7.8-2.1a12.8 12.8 0 0 0 9.2-2.7c-3.4-.1-6.2-2.3-7.2-5.4-.3.1-.6.1-.9.1-.7 0-1.3-.1-1.9-.2 3.5- .7 6.1-3.8 6.1-7.4 0-.1 0-.1 0-.2-1 1.1-2.2 1.8-3.6 2-3.4-2.3-1.4-6.8 2.2-8.5 3.7 4.5 9.1 7.5 15.1 7.8-.1-.4-.1-.8-.1-1.2 0-3.3 2.7-6 6-6 1.7 0 3.3.7 4.4 1.9z"/></svg></a>
+                    </div>
+                </div>
+                <p class="text-sm font-sans" style="color: var(--accent-light);">
+                    <span class="dark:text-[var(--accent-dark)]">
+                        &copy; <script>document.write(new Date().getFullYear())</script> Nama Anda. Dibuat dengan cinta dan secangkir kopi.
+                    </span>
+                </p>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Scroll to Top Button -->
+    <button id="scrollTopBtn" title="Kembali ke atas" class="hidden fixed z-30 bottom-8 right-8 p-3 rounded-full shadow-lg transition-opacity duration-300">
+         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
+    </button>
+
+    <script>
+        // --- THEME TOGGLE SCRIPT ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlEl = document.documentElement;
+
+        const applyTheme = (theme) => {
+            if (theme === 'dark') {
+                htmlEl.classList.add('dark');
+            } else {
+                htmlEl.classList.remove('dark');
+            }
+        };
+
+        themeToggleBtn.addEventListener('click', () => {
+            const isDark = htmlEl.classList.contains('dark');
+            if (isDark) {
+                localStorage.setItem('theme', 'light');
+                applyTheme('light');
+            } else {
+                localStorage.setItem('theme', 'dark');
+                applyTheme('dark');
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme) {
+                applyTheme(savedTheme);
+            } else if (prefersDark) {
+                applyTheme('dark');
+            } else {
+                applyTheme('light');
+            }
+        });
+
+        // --- MOBILE MENU SCRIPT ---
+        const menuToggleBtn = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuOpenIcon = document.getElementById('menu-open-icon');
+        const menuCloseIcon = document.getElementById('menu-close-icon');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        const toggleMenu = () => {
+            mobileMenu.classList.toggle('hidden');
+            menuOpenIcon.classList.toggle('hidden');
+            menuCloseIcon.classList.toggle('hidden');
+            // Mencegah body scroll saat menu terbuka
+            const isMenuHidden = mobileMenu.classList.contains('hidden');
+            document.body.style.overflow = isMenuHidden ? '' : 'hidden';
+        };
+
+        menuToggleBtn.addEventListener('click', toggleMenu);
+
+        // Menutup menu saat link di klik
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (!mobileMenu.classList.contains('hidden')) {
+                    toggleMenu();
+                }
+            });
+        });
+
+        // --- SCROLL TO TOP SCRIPT ---
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+        window.onscroll = function() {
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                scrollTopBtn.classList.remove('hidden');
+            } else {
+                scrollTopBtn.classList.add('hidden');
+            }
+        };
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
+

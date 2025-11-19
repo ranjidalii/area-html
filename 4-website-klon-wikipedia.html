@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klon Wikipedia Sederhana</title>
+    <!-- Memuat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Wikipedia menggunakan tumpukan font sistem sans-serif.
+          Kelas 'font-sans' dari Tailwind sangat mirip dengan ini,
+          memberikan tampilan yang bersih dan mudah dibaca di semua perangkat.
+        */
+        body {
+            font-family: sans-serif; /* Fallback paling dasar seperti Wikipedia */
+        }
+        
+        /* Meniru garis bawah tipis pada heading bagian Wikipedia */
+        .section-heading {
+            border-bottom: 1px solid #a2a9b1;
+            padding-bottom: 0.25em;
+        }
+
+        /* Meniru tampilan kotak info */
+        .infobox {
+            border: 1px solid #a2a9b1;
+            background-color: #f8f9fa;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+        
+        /* Tautan biru khas Wikipedia */
+        a {
+            color: #0645ad;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Tautan "artikel baru" berwarna merah (opsional) */
+        a.new-link {
+            color: #dd3333;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <!-- Kontainer Halaman Utama -->
+    <div class="container mx-auto max-w-screen-xl">
+        
+        <div class="flex flex-col md:flex-row">
+            
+            <!-- Bilah Sisi Kiri (Navigasi) -->
+            <nav class="w-full md:w-48 bg-white md:border-r border-gray-300 p-4 md:sticky top-0 h-auto md:h-screen">
+                <!-- Logo/Judul Situs -->
+                <div class="mb-4">
+                    <img src="https://placehold.co/135x135/png?text=LOGO" alt="Logo Situs" class="w-24 h-24 mx-auto md:mx-0">
+                    <h2 class="text-center md:text-left text-lg font-semibold mt-2 hidden md:block">Ensiklopedia</h2>
+                </div>
+                
+                <!-- Tautan Navigasi -->
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:bg-gray-100 p-1 block rounded">Halaman utama</a></li>
+                    <li><a href="#" class="hover:bg-gray-100 p-1 block rounded">Daftar isi</a></li>
+                    <li><a href="#" class="hover:bg-gray-100 p-1 block rounded">Artikel pilihan</a></li>
+                    <li><a href="#" class="hover:bg-gray-100 p-1 block rounded">Perubahan terbaru</a></li>
+                    <li><a href="#" class="hover:bg-gray-100 p-1 block rounded">Halaman acak</a></li>
+                    <li><a href="#" class="hover:bg-gray-100 p-1 block rounded">Bantuan</a></li>
+                    <li><a href="#" class="hover:bg-gray-100 p-1 block rounded">Donasi</a></li>
+                </ul>
+            </nav>
+
+            <!-- Konten Utama -->
+            <main class="flex-1 bg-white p-6 md:p-8 border-l border-r border-gray-300 min-h-screen">
+                
+                <!-- Area Judul Halaman -->
+                <header class="border-b border-gray-300 pb-4 mb-4">
+                    <h1 class="text-3xl md:text-4xl font-light tracking-tight text-gray-900">Judul Artikel</h1>
+                    <p class="text-sm text-gray-600 mt-1">Dari Ensiklopedia, sumber bebas</p>
+                </header>
+
+                <div class="flex flex-col lg:flex-row-reverse">
+                
+                    <!-- Bilah Sisi Kanan (Kotak Info) -->
+                    <aside class="w-full lg:w-72 lg:ml-8 mb-4 lg:mb-0 flex-shrink-0">
+                        <div class="infobox w-full clear-right p-3 rounded">
+                            <h3 class="font-bold text-center text-lg pb-2">Contoh Kotak Info</h3>
+                            <div class="text-center py-2">
+                                <img src="https://placehold.co/280x200/eee/777?text=Gambar+Ilustrasi" alt="Ilustrasi" class="border border-gray-300 w-full h-auto">
+                                <p class="text-xs pt-1">Keterangan gambar ilustrasi</p>
+                            </div>
+                            <table class="w-full">
+                                <tbody>
+                                    <tr class="border-t border-gray-300">
+                                        <th class="text-left p-2">Nama</th>
+                                        <td class="p-2">Data Contoh</td>
+                                    </tr>
+                                    <tr class="border-t border-gray-300">
+                                        <th class="text-left p-2">Ditemukan</th>
+                                        <td class="p-2">Tahun 2024</td>
+                                    </tr>
+                                    <tr class="border-t border-gray-300">
+                                        <th class="text-left p-2">Status</th>
+                                        <td class="p-2">Aktif</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </aside>
+                
+                    <!-- Teks Artikel -->
+                    <article class="flex-1">
+                        <p class="mb-4 leading-relaxed">
+                            Ini adalah paragraf pengantar artikel. <strong>Teks tebal</strong> digunakan untuk menyorot istilah utama. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                        </p>
+                        
+                        <p class="mb-4 leading-relaxed">
+                            Artikel ini mungkin memiliki beberapa bagian, seperti <a href="#sejarah">Sejarah</a>, <a href="#geografi">Geografi</a>, dan <a href="#demografi">Demografi</a>. Tautan internal terlihat <a href="#">seperti ini</a>, dan tautan eksternal biasanya memiliki ikon kecil, meskipun kami tidak menambahkannya di sini demi kesederhanaan. Tautan ke halaman yang belum ada mungkin terlihat <a href="#" class="new-link">seperti ini</a>.
+                        </p>
+
+                        <!-- Daftar Isi (Sederhana) -->
+                        <div class="w-full md:w-auto md:max-w-md bg-gray-50 border border-gray-300 p-3 mb-6 rounded text-sm float-none md:float-left md:mr-6">
+                            <h2 class="font-bold text-center mb-2">Daftar isi</h2>
+                            <ul class="space-y-1 list-decimal list-inside">
+                                <li><a href="#sejarah" class="hover:underline">Sejarah</a>
+                                    <ul class="space-y-1 list-disc list-inside ml-4 mt-1">
+                                        <li><a href="#awal-mula" class="hover:underline">Awal mula</a></li>
+                                        <li><a href="#era-modern" class="hover:underline">Era modern</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#geografi" class="hover:underline">Geografi</a></li>
+                                <li><a href="#demografi" class="hover:underline">Demografi</a></li>
+                                <li><a href="#referensi" class="hover:underline">Referensi</a></li>
+                            </ul>
+                        </div>
+
+                        <h2 id="sejarah" class="text-2xl font-light section-heading mt-6 mb-3 clear-both">
+                            <span class="font-semibold">Sejarah</span>
+                        </h2>
+                        
+                        <h3 id="awal-mula" class="text-xl font-semibold mt-4 mb-2">Awal mula</h3>
+                        <p class="mb-4 leading-relaxed">
+                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+                        </p>
+
+                        <h3 id="era-modern" class="text-xl font-semibold mt-4 mb-2">Era modern</h3>
+                        <p class="mb-4 leading-relaxed">
+                            Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+                        </p>
+
+                        <h2 id="geografi" class="text-2xl font-light section-heading mt-6 mb-3">
+                            <span class="font-semibold">Geografi</span>
+                        </h2>
+                        <p class="mb-4 leading-relaxed">
+                            Maecenas sed diam eget risus varius blandit sit amet non magna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec ullamcorper nulla non metus auctor fringilla.
+                        </p>
+
+                        <!-- Contoh Tabel -->
+                        <table class="w-full md:w-auto border-collapse border border-gray-400 my-6 text-sm infobox">
+                            <caption class="text-lg font-semibold p-2">Data Populasi</caption>
+                            <thead>
+                                <tr class="bg-gray-200">
+                                    <th class="border border-gray-300 p-2">Tahun</th>
+                                    <th class="border border-gray-300 p-2">Populasi</th>
+                                    <th class="border border-gray-300 p-2">% Perubahan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-t border-gray-300">
+                                    <td class="border border-gray-300 p-2">1990</td>
+                                    <td class="border border-gray-300 p-2">1.000.000</td>
+                                    <td class="border border-gray-300 p-2">-</td>
+                                </tr>
+                                <tr class="border-t border-gray-300 bg-white">
+                                    <td class="border border-gray-300 p-2">2000</td>
+                                    <td class="border border-gray-300 p-2">1.200.000</td>
+                                    <td class="border border-gray-300 p-2">+20%</td>
+                                </tr>
+                                <tr class="border-t border-gray-300">
+                                    <td class="border border-gray-300 p-2">2010</td>
+                                    <td class="border border-gray-300 p-2">1.500.000</td>
+                                    <td class="border border-gray-300 p-2">+25%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <h2 id="referensi" class="text-2xl font-light section-heading mt-6 mb-3">
+                            <span class="font-semibold">Referensi</span>
+                        </h2>
+                        <ol class="list-decimal list-inside text-sm leading-relaxed space-y-1">
+                            <li><a href="#">^</a> Judul Sumber Pertama. (2023). Penerbit.</li>
+                            <li><a href="#">^</a> Contoh, A. (2022). <i>Buku Tentang Topik Ini</i>. Kota: Penerbit Akademik.</li>
+                            <li><a href="#">^</a> "Situs Web Berita Mengonfirmasi Fakta". (1 Januari 2024). Diperoleh 4 November 2025.</li>
+                        </ol>
+
+                    </article>
+                </div>
+            </main>
+
+        </div>
+        
+        <!-- Footer -->
+        <footer class="text-center md:text-left p-4 text-xs text-gray-600 border-t border-gray-300 bg-white mt-0 md:mt-4">
+            <p class="mb-2">Teks tersedia di bawah <a href="#" class="font-semibold">Lisensi Atribusi-BerbagiSerupa Creative Commons</a>; ketentuan tambahan mungkin berlaku. Lihat <a href="#" class="font-semibold">Ketentuan Penggunaan</a> untuk detailnya.</p>
+            <a href="#" class="mr-3">Kebijakan privasi</a>
+            <a href="#" class="mr-3">Tentang Ensiklopedia</a>
+            <a href="#" class="mr-3">Penyangkalan</a>
+            <a href="#" class="mr-3">Tampilan seluler</a>
+        </footer>
+
+    </div>
+
+</body>
+</html>

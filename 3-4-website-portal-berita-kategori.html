@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Meta SEO untuk Halaman Kategori -->
+    <title>Kategori: Internasional - BeritaKini</title>
+    <meta name="description" content="Daftar berita terkini dan terpercaya dari kategori Internasional di portal BeritaKini.">
+    <!-- Meta keywords bisa diisi dengan tag artikel -->
+    <meta name="keywords" content="internasional, berita internasional, kategori, beritakini">
+
+    <!-- Memuat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Kita tidak memerlukan 'prose' di sini, tetapi tidak apa-apa jika tetap ada -->
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <style>
+        /* Menggunakan font Inter yang bersih dan modern */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Menambahkan scroll behavior smooth untuk tombol back-to-top */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+
+    <!-- Schema.org Markup (SEO) untuk Halaman Kategori/Koleksi -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Kategori: Internasional - BeritaKini",
+      "description": "Daftar berita terkini dari kategori Internasional.",
+      "url": "https://www.beritakini-contoh.com/kategori/internasional",
+      "publisher": {
+          "@type": "Organization",
+          "name": "BeritaKini",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://placehold.co/200x60/eee/777?text=Logo+BeritaKini"
+          }
+       }
+    }
+    </script>
+</head>
+<body class="bg-white text-gray-800">
+
+    <!-- 1. Header & Navigasi (Sticky) - Sama seperti artikel.html -->
+    <header class="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-sm border-b border-gray-200">
+        <div class="container mx-auto max-w-6xl flex flex-col md:flex-row justify-between items-center py-4 px-4 md:px-0">
+            <!-- Logo / Judul Situs -->
+            <h1 class="text-3xl font-extrabold text-gray-900 mb-4 md:mb-0">
+                <a href="index.html">BeritaKini</a> <!-- Link kembali ke index -->
+            </h1>
+            
+            <!-- Menu Navigasi -->
+            <nav class="flex items-center space-x-4 md:space-x-6">
+                <ul class="flex space-x-4 md:space-x-6">
+                    <li><a href="index.html" class="text-gray-600 hover:text-blue-600">Home</a></li> 
+                    <li><a href="#" class="text-gray-600 hover:text-blue-600">Nasional</a></li>
+                    <li><a href="#" class="font-semibold text-gray-900 hover:text-blue-600">Internasional</a></li> <!-- Kategori aktif -->
+                    <li><a href="#" class="text-gray-600 hover:text-blue-600">Olahraga</a></li>
+                    <li><a href="#" class="text-gray-600 hover:text-blue-600">Teknologi</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Kontainer Utama -->
+    <div class="container mx-auto max-w-6xl p-4 md:p-8">
+
+        <!-- Ruang Iklan Leaderboard (970x90 atau 728x90) -->
+        <div class="my-4 md:my-6 text-center">
+            <div class="bg-gray-200 w-full max-w-4xl h-24 mx-auto flex items-center justify-center text-gray-500 rounded-lg">
+                Ruang Iklan (Leaderboard 728x90)
+            </div>
+        </div>
+
+        <!-- 2. Konten Kategori & Sidebar -->
+        <main class="mt-8">
+            <div class="flex flex-col-reverse md:flex-row gap-12">
+
+                <!-- Kolom Daftar Artikel Kategori (Utama) -->
+                <div class="w-full md:w-2/3">
+                    
+                    <!-- Header Kategori -->
+                    <div class="border-b border-gray-200 pb-4 mb-6">
+                        <!-- Breadcrumbs -->
+                        <nav class="text-sm text-gray-500 mb-2">
+                            <a href="index.html" class="hover:underline">Home</a>
+                            <span class="mx-1">&gt;</span>
+                            <span class="text-gray-700">Internasional</span>
+                        </nav>
+                        
+                        <!-- Judul Kategori -->
+                        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
+                            Kategori: Internasional
+                        </h1>
+                    </div>
+
+                    <!-- Daftar Artikel -->
+                    <div class="space-y-8">
+                        <!-- Artikel 1 -->
+                        <article class="flex flex-col sm:flex-row gap-4">
+                            <img src="https://placehold.co/400x300/eee/777?text=Berita+1" alt="Berita 1" class="w-full sm:w-48 h-32 object-cover rounded-lg">
+                            <div class="flex-1">
+                                <!-- Judul Artikel - Link ke halaman artikel -->
+                                <h4 class="text-lg font-semibold text-gray-900 my-1">
+                                    <a href="artikel.html" class="hover:underline">Judul Berita Internasional Pertama di Halaman Ini</a>
+                                </h4>
+                                <p class="text-sm text-gray-600 hidden sm:block">Ini adalah cuplikan singkat dari berita tersebut, menjelaskan poin utama dari artikel...</p>
+                                <p class="text-sm text-gray-500 mt-1">4 November 2025</p>
+                            </div>
+                        </article>
+                        
+                        <!-- Artikel 2 -->
+                        <article class="flex flex-col sm:flex-row gap-4">
+                            <img src="https://placehold.co/400x300/eee/777?text=Berita+2" alt="Berita 2" class="w-full sm:w-48 h-32 object-cover rounded-lg">
+                            <div class="flex-1">
+                                <h4 class="text-lg font-semibold text-gray-900 my-1">
+                                    <a href="artikel.html" class="hover:underline">Analisis Mendalam Mengenai Peristiwa di Luar Negeri</a>
+                                </h4>
+                                <p class="text-sm text-gray-600 hidden sm:block">Dampak dari kejadian terbaru dianalisis oleh para ahli...</p>
+                                <p class="text-sm text-gray-500 mt-1">4 November 2025</p>
+                            </div>
+                        </article>
+
+                        <!-- Artikel 3 -->
+                        <article class="flex flex-col sm:flex-row gap-4">
+                            <img src="https://placehold.co/400x300/eee/777?text=Berita+3" alt="Berita 3" class="w-full sm:w-48 h-32 object-cover rounded-lg">
+                            <div class="flex-1">
+                                <h4 class="text-lg font-semibold text-gray-900 my-1">
+                                    <a href="artikel.html" class="hover:underline">Perkembangan Baru dalam KTT Global</a>
+                                </h4>
+                                <p class="text-sm text-gray-600 hidden sm:block">Para pemimpin dunia berkumpul untuk membahas isu-isu penting...</p>
+                                <p class="text-sm text-gray-500 mt-1">3 November 2025</p>
+                            </div>
+                        </article>
+
+                        <!-- Artikel 4 -->
+                        <article class="flex flex-col sm:flex-row gap-4">
+                            <img src="https://placehold.co/400x300/eee/777?text=Berita+4" alt="Berita 4" class="w-full sm:w-48 h-32 object-cover rounded-lg">
+                            <div class="flex-1">
+                                <h4 class="text-lg font-semibold text-gray-900 my-1">
+                                    <a href="artikel.html" class="hover:underline">Laporan Khusus: Kehidupan Warga di Negara Terdampak</a>
+                                </h4>
+                                <p class="text-sm text-gray-600 hidden sm:block">Melihat lebih dekat bagaimana warga menghadapi situasi sulit...</p>
+                                <p class="text-sm text-gray-500 mt-1">3 November 2025</p>
+                            </div>
+                        </article>
+
+                        <!-- Artikel 5 -->
+                        <article class="flex flex-col sm:flex-row gap-4">
+                            <img src="https://placehold.co/400x300/eee/777?text=Berita+5" alt="Berita 5" class="w-full sm:w-48 h-32 object-cover rounded-lg">
+                            <div class="flex-1">
+                                <h4 class="text-lg font-semibold text-gray-900 my-1">
+                                    <a href="artikel.html" class="hover:underline">Kesepakatan Perdagangan Baru Tercapai Antar Negara</a>
+                                </h4>
+                                <p class="text-sm text-gray-600 hidden sm:block">Poin-poin penting dari kesepakatan dagang yang baru saja ditandatangani...</p>
+                                <p class="text-sm text-gray-500 mt-1">2 November 2025</p>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Pagination -->
+                    <nav class="mt-12 pt-8 border-t border-gray-200" aria-label="Pagination">
+                        <ul class="flex justify-center items-center space-x-1 text-sm">
+                            <!-- Tombol Sebelumnya (Disabled karena di halaman 1) -->
+                            <li>
+                                <a href="#" class="flex items-center justify-center px-3 h-8 text-gray-400 bg-white border border-gray-300 rounded-l-lg cursor-not-allowed">
+                                    <span class="sr-only">Sebelumnya</span>
+                                    <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+                                    </svg>
+                                </a>
+                            </li>
+                            
+                            <!-- Halaman 1 (Aktif) -->
+                            <li>
+                                <a href="#" aria-current="page" class="z-10 flex items-center justify-center px-3 h-8 leading-tight text-white bg-blue-600 border border-blue-600">
+                                    1
+                                </a>
+                            </li>
+                            
+                            <!-- Halaman 2 -->
+                            <li>
+                                <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700">
+                                    2
+                                </a>
+                            </li>
+                            
+                            <!-- Halaman 3 -->
+                            <li>
+                                <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700">
+                                    3
+                                </a>
+                            </li>
+                            
+                            <!-- Ellipsis -->
+                            <li>
+                                <span class="flex items-center justify-center px-3 h-8 text-gray-500">...</span>
+                            </li>
+                            
+                            <!-- Halaman 10 -->
+                            <li>
+                                <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700">
+                                    10
+                                </a>
+                            </li>
+                            
+                            <!-- Tombol Berikutnya -->
+                            <li>
+                                <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700">
+                                    <span class="sr-only">Berikutnya</span>
+                                    <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                                    </svg>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                </div>
+
+                <!-- Kolom Sidebar (Populer) - Sama seperti artikel.html -->
+                <aside class="w-full md:w-1/3">
+                    <div class="bg-white p-6 rounded-lg shadow-md sticky top-28"> 
+                        
+                        <!-- Ruang Iklan Sidebar (300x250) -->
+                        <div class="mb-5 text-center">
+                            <div class="bg-gray-200 w-full max-w-[300px] h-[250px] mx-auto flex items-center justify-center text-gray-500 rounded-lg">
+                                Ruang Iklan (300x250)
+                            </div>
+                        </div>
+                        
+                        <h4 class="text-xl font-bold text-gray-900 mb-5 border-b border-gray-200 pb-2">
+                            Berita Populer
+                        </h4>
+                        <ul class="space-y-4">
+                            <!-- Berita Populer 1 -->
+                            <li class="flex items-start gap-3">
+                                <span class="text-2xl font-bold text-gray-300">1</span>
+                                <div>
+                                    <a href="artikel.html" class="font-semibold text-gray-800 hover:underline">
+                                        Ini Alasan Mengapa Peristiwa A Menjadi Viral
+                                    </a>
+                                </div>
+                            </li>
+                            <!-- Berita Populer 2 -->
+                            <li class="flex items-start gap-3">
+                                <span class="text-2xl font-bold text-gray-300">2</span>
+                                <div>
+                                    <a href="artikel.html" class="font-semibold text-gray-800 hover:underline">
+                                        Analisis Mendalam Tentang Apa yang Terjadi Kemarin
+                                    </a>
+                                </div>
+                            </li>
+                            <!-- Berita Populer 3 -->
+                            <li class="flex items-start gap-3">
+                                <span class="text-2xl font-bold text-gray-300">3</span>
+                                <div>
+                                    <a href="artikel.html" class="font-semibold text-gray-800 hover:underline">
+                                        Tokoh Publik Memberikan Tanggapan Mengejutkan
+                                    </a>
+                                </div>
+                            </li>
+                            <!-- Berita Populer 4 -->
+                            <li class="flex items-start gap-3">
+                                <span class="text-2xl font-bold text-gray-300">4</span>
+                                <div>
+                                    <a href="artikel.html" class="font-semibold text-gray-800 hover:underline">
+                                        Panduan Lengkap: Cara Melakukan Sesuatu
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </aside>
+
+            </div>
+        </main>
+
+        <!-- 4. Footer - Sama seperti artikel.html -->
+        <footer class="mt-12 md:mt-16 border-t border-gray-200 pt-8 text-center text-gray-500 text-sm">
+            <div class="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-6 mb-4">
+                <a href="#" class="hover:text-gray-900">Tentang Kami</a>
+                <a href="#" class="hover:text-gray-900">Kontak</a>
+                <a href="#" class="hover:text-gray-900">Redaksi</a>
+                <a href="#" class="hover:text-gray-900">Kebijakan Privasi</a>
+                <a href="#" class="hover:text-gray-900">Pedoman Media Siber</a>
+            </div>
+            <p>&copy; 2025 BeritaKini. Semua hak cipta dilindungi.</p>
+        </footer>
+
+    </div>
+
+    <!-- Tombol Back to Top - Sama seperti artikel.html -->
+    <button id="back-to-top" class="hidden fixed bottom-6 right-6 z-50 p-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-300">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
+    </button>
+
+    <!-- Skrip untuk Fungsionalitas - Sama seperti artikel.html -->
+    <script>
+        (function() {
+            // --- Logika Tombol Back to Top ---
+            const backToTopBtn = document.getElementById('back-to-top');
+
+            // Tampilkan tombol saat scroll
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    backToTopBtn.classList.remove('hidden');
+                } else {
+                    backToTopBtn.classList.add('hidden');
+                }
+            });
+
+            // Scroll ke atas saat diklik
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    // behavior 'smooth' sudah diatur di CSS
+                });
+            });
+
+        })();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout - Produk Digital Anda</title>
+
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts for classic and elegant typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Inter:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Custom styles to enhance the classic theme */
+      :root {
+        --bg-light: #fdfaf5; /* Warna krem lembut untuk light mode */
+        --bg-dark: #1a1a1a; /* Warna abu-abu sangat gelap untuk dark mode */
+        --text-light: #3d3d3d;
+        --text-dark: #d1d1d1;
+        --accent-light: #8c7a6b;
+        --accent-darker: #7a6a5b; /* a bit darker for hover */
+        --accent-dark: #a89a8e;
+        --border-light: #e0d1d1;
+        --border-dark: #3a3a3a;
+      }
+
+      .dark {
+        --bg-light: var(--bg-dark);
+        --text-light: var(--text-dark);
+        --border-light: var(--border-dark);
+        --accent-light: var(--accent-dark);
+      }
+
+      .font-serif {
+        font-family: "Lora", serif;
+      }
+      .font-sans {
+        font-family: "Inter", sans-serif;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: var(--bg-light);
+        color: var(--text-light);
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Lora", serif;
+      }
+
+      /* Checkout Form specific styles */
+      .form-input,
+      .form-select {
+        border: 1px solid var(--border-light);
+        background-color: white;
+        padding: 0.75rem 1rem;
+        border-radius: 0.375rem;
+        width: 100%;
+        transition: border-color 0.2s;
+        color: #3d3d3d;
+      }
+      .dark .form-input,
+      .dark .form-select {
+        background-color: #2b2b2b;
+        color: var(--text-dark);
+        border-color: var(--border-dark);
+      }
+      .form-input:focus,
+      .form-select:focus {
+        outline: none;
+        border-color: var(--accent-light);
+        box-shadow: 0 0 0 3px rgba(140, 122, 107, 0.2);
+      }
+      .btn-primary {
+        background-color: var(--accent-light);
+        color: white;
+        padding: 0.875rem 1.5rem;
+        border-radius: 0.375rem;
+        font-weight: 600;
+        text-align: center;
+        width: 100%;
+        transition: background-color 0.2s;
+      }
+      .btn-primary:hover {
+        background-color: var(--accent-darker);
+      }
+      .total-price {
+        color: var(--accent-darker);
+      }
+      .dark .total-price {
+        color: var(--accent-dark);
+      }
+
+      #scrollTopBtn {
+        background-color: var(--accent-light);
+        color: #fdfaf5;
+      }
+      .dark #scrollTopBtn {
+        background-color: var(--accent-dark);
+        color: var(--bg-dark);
+      }
+    </style>
+  </head>
+  <body class="antialiased">
+    <div class="max-w-4xl mx-auto px-6 py-8 md:py-12">
+      <!-- Header -->
+      <header class="flex justify-between items-center mb-16 relative z-50">
+        <a href="index.html" class="text-xl md:text-2xl font-serif font-bold"
+          >[Nama Anda]</a
+        >
+        <div class="flex items-center space-x-4">
+          <nav class="hidden md:flex space-x-6 text-sm font-medium">
+            <a href="index.html#tentang" class="nav-link">Tentang</a>
+            <a href="index.html#karya" class="nav-link">Karya</a>
+            <a href="index.html#tulisan" class="nav-link">Tulisan</a>
+            <a href="index.html#kontak" class="nav-link">Kontak</a>
+          </nav>
+          <button
+            id="theme-toggle"
+            class="p-2 rounded-full focus:outline-none focus:ring-2 ring-offset-2"
+            style="
+              background-color: var(--border-light);
+              color: var(--text-light);
+              border-color: var(--border-light);
+            "
+          >
+            <div class="dark:hidden">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+              </svg>
+            </div>
+            <div class="hidden dark:block">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="4" />
+                <path d="M12 2v2" />
+                <path d="M12 20v2" />
+                <path d="m4.93 4.93 1.41 1.41" />
+                <path d="m17.66 17.66 1.41 1.41" />
+                <path d="M2 12h2" />
+                <path d="M20 12h2" />
+                <path d="m6.34 17.66-1.41 1.41" />
+                <path d="m19.07 4.93-1.41 1.41" />
+              </svg>
+            </div>
+          </button>
+          <button id="menu-toggle" class="md:hidden p-2 rounded-md -mr-2">
+            <svg
+              id="menu-open-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="4" x2="20" y1="12" y2="12" />
+              <line x1="4" x2="20" y1="6" y2="6" />
+              <line x1="4" x2="20" y1="18" y2="18" />
+            </svg>
+            <svg
+              id="menu-close-icon"
+              class="hidden"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Mobile Menu -->
+      <div
+        id="mobile-menu"
+        class="hidden fixed inset-0 z-40 flex flex-col items-center justify-center space-y-10 text-2xl"
+        style="background-color: var(--bg-light)"
+      >
+        <div
+          class="w-full h-full flex flex-col items-center justify-center space-y-10"
+        >
+          <a href="index.html#tentang" class="mobile-nav-link">Tentang</a>
+          <a href="index.html#karya" class="mobile-nav-link">Karya</a>
+          <a href="index.html#tulisan" class="mobile-nav-link">Tulisan</a>
+          <a href="index.html#kontak" class="mobile-nav-link">Kontak</a>
+        </div>
+      </div>
+
+      <main>
+        <!-- Konten Checkout Utama -->
+        <div class="text-center mb-12">
+          <h1 class="text-4xl md:text-5xl font-serif font-bold">Checkout</h1>
+          <p class="mt-2 text-lg" style="color: var(--accent-light)">
+            Selesaikan pesanan Anda dalam beberapa langkah mudah.
+          </p>
+        </div>
+
+        <div
+          class="w-full max-w-4xl mx-auto rounded-lg shadow-lg"
+          style="border: 1px solid var(--border-light)"
+        >
+          <div class="grid md:grid-cols-2">
+            <!-- Kolom Kiri: Ringkasan Pesanan -->
+            <div
+              class="p-8 bg-gray-50 dark:bg-[#222222] rounded-t-lg md:rounded-tr-none md:rounded-l-lg"
+              style="border-right: 1px solid var(--border-light)"
+            >
+              <h2 class="text-2xl font-serif font-bold mb-6">
+                Ringkasan Pesanan
+              </h2>
+              <div class="space-y-4">
+                <div class="flex items-center space-x-4">
+                  <img
+                    src="https://placehold.co/100x100/e0d9d1/3d3d3d?text=Produk"
+                    alt="Produk Digital"
+                    class="w-20 h-20 rounded-md object-cover"
+                  />
+                  <div>
+                    <h3 class="font-semibold text-base">
+                      Nama Produk Digital Anda
+                    </h3>
+                    <p class="text-sm opacity-70">E-book / Template / Kursus</p>
+                  </div>
+                </div>
+                <div
+                  class="border-t border-dashed pt-4 space-y-2"
+                  style="border-color: var(--border-light)"
+                >
+                  <div class="flex justify-between text-sm">
+                    <span>Subtotal</span><span>Rp 150.000</span>
+                  </div>
+                  <div class="flex justify-between text-sm">
+                    <span>Biaya unik</span><span>Rp 123</span>
+                  </div>
+                  <div class="flex justify-between font-bold text-lg pt-2">
+                    <span>Total</span
+                    ><span class="total-price">Rp 150.123</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Kolom Kanan: Detail Pembayaran -->
+            <div
+              class="p-8 bg-white dark:bg-[var(--bg-dark)] rounded-b-lg md:rounded-bl-none md:rounded-r-lg"
+            >
+              <div>
+                <h2 class="text-2xl font-serif font-bold mb-6">
+                  Detail Pembayaran
+                </h2>
+                <form id="checkout-form" class="space-y-6">
+                  <div>
+                    <label
+                      for="full-name"
+                      class="block font-semibold mb-2 text-sm"
+                      >Nama Lengkap</label
+                    >
+                    <input
+                      type="text"
+                      id="full-name"
+                      class="form-input"
+                      placeholder="Masukkan nama Anda"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label for="email" class="block font-semibold mb-2 text-sm"
+                      >Alamat Email</label
+                    >
+                    <input
+                      type="email"
+                      id="email"
+                      class="form-input"
+                      placeholder="Untuk pengiriman produk"
+                      required
+                    />
+                  </div>
+                  <!-- PERUBAHAN DI SINI: Menggunakan Select Box -->
+                  <div>
+                    <label
+                      for="payment-method"
+                      class="block font-semibold mb-2 text-sm"
+                      >Metode Pembayaran</label
+                    >
+                    <div class="relative">
+                      <select
+                        id="payment-method"
+                        name="payment-method"
+                        class="form-select w-full appearance-none"
+                      >
+                        <option value="qris">
+                          QRIS (Semua E-Wallet & M-Banking)
+                        </option>
+                        <option value="bank-transfer">
+                          Virtual Account (BCA, BNI, BRI)
+                        </option>
+                        <option value="ewallet">E-Wallet (GoPay, OVO)</option>
+                      </select>
+                      <div
+                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 dark:text-gray-400"
+                      >
+                        <svg
+                          class="fill-current h-4 w-4"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- AKHIR PERUBAHAN -->
+                  <div class="pt-4">
+                    <button type="submit" class="btn-primary">
+                      Bayar Sekarang
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <footer
+        class="text-center pt-10 mt-20 border-t"
+        style="border-color: var(--border-light)"
+      >
+        <div id="kontak" class="mb-6 scroll-mt-20">
+          <p class="text-lg font-serif mb-4">Mari terhubung</p>
+          <div class="flex justify-center space-x-6">
+            <a href="#" aria-label="Email"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect width="20" height="16" x="2" y="4" rx="2" />
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg
+            ></a>
+            <a href="#" aria-label="LinkedIn"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+                />
+                <rect width="4" height="12" x="2" y="9" />
+                <circle cx="4" cy="4" r="2" /></svg
+            ></a>
+            <a href="#" aria-label="Twitter"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M22 4s-.7 2.1-2 3.4c1.6 1.4 3.3 4.9 3.3 9.7 0 .3 0 .7 0 1 0 4.2-3.1 9.2-9.2 9.2-1.8 0-3.4-.5-4.8-1.4A6.5 6.5 0 0 0 6 22c-3.1 0-5.7-1.1-7.8-2.1a12.8 12.8 0 0 0 9.2-2.7c-3.4-.1-6.2-2.3-7.2-5.4-.3.1-.6.1-.9.1-.7 0-1.3-.1-1.9-.2 3.5- .7 6.1-3.8 6.1-7.4 0-.1 0-.1 0-.2-1 1.1-2.2 1.8-3.6 2-3.4-2.3-1.4-6.8 2.2-8.5 3.7 4.5 9.1 7.5 15.1 7.8-.1-.4-.1-.8-.1-1.2 0-3.3 2.7-6 6-6 1.7 0 3.3.7 4.4 1.9z"
+                /></svg
+            ></a>
+          </div>
+        </div>
+        <p class="text-sm font-sans" style="color: var(--accent-light)">
+          &copy;
+          <script>
+            document.write(new Date().getFullYear());
+          </script>
+          [Nama Anda]. Dibuat dengan cinta dan secangkir kopi.
+        </p>
+      </footer>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button
+      id="scrollTopBtn"
+      title="Kembali ke atas"
+      class="hidden fixed z-30 bottom-8 right-8 p-3 rounded-full shadow-lg transition-opacity duration-300"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="3"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="m5 12 7-7 7 7" />
+        <path d="M12 19V5" />
+      </svg>
+    </button>
+
+    <script>
+      // --- THEME TOGGLE SCRIPT ---
+      const themeToggleBtn = document.getElementById("theme-toggle");
+      const htmlEl = document.documentElement;
+
+      const applyTheme = (theme) => {
+        if (theme === "dark") {
+          htmlEl.classList.add("dark");
+        } else {
+          htmlEl.classList.remove("dark");
+        }
+      };
+
+      themeToggleBtn.addEventListener("click", () => {
+        const isDark = htmlEl.classList.contains("dark");
+        const newTheme = isDark ? "light" : "dark";
+        localStorage.setItem("theme", newTheme);
+        applyTheme(newTheme);
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const savedTheme = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        applyTheme(savedTheme || (prefersDark ? "dark" : "light"));
+      });
+
+      // --- MOBILE MENU SCRIPT ---
+      const menuToggleBtn = document.getElementById("menu-toggle");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const menuOpenIcon = document.getElementById("menu-open-icon");
+      const menuCloseIcon = document.getElementById("menu-close-icon");
+      const mobileNavLinks = document.querySelectorAll(".mobile-nav-link");
+
+      const toggleMenu = () => {
+        mobileMenu.classList.toggle("hidden");
+        menuOpenIcon.classList.toggle("hidden");
+        menuCloseIcon.classList.toggle("hidden");
+        document.body.style.overflow = mobileMenu.classList.contains("hidden")
+          ? ""
+          : "hidden";
+      };
+
+      menuToggleBtn.addEventListener("click", toggleMenu);
+      mobileNavLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          if (!mobileMenu.classList.contains("hidden")) toggleMenu();
+        });
+      });
+
+      // --- SCROLL TO TOP SCRIPT ---
+      const scrollTopBtn = document.getElementById("scrollTopBtn");
+      window.onscroll = () => {
+        if (
+          document.body.scrollTop > 100 ||
+          document.documentElement.scrollTop > 100
+        ) {
+          scrollTopBtn.classList.remove("hidden");
+        } else {
+          scrollTopBtn.classList.add("hidden");
+        }
+      };
+      scrollTopBtn.addEventListener("click", () =>
+        window.scrollTo({ top: 0, behavior: "smooth" })
+      );
+
+      // --- CHECKOUT FORM SCRIPT ---
+      document
+        .getElementById("checkout-form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          const fullName = document.getElementById("full-name").value;
+          const email = document.getElementById("email").value;
+          // PERUBAHAN DI SINI: Mengambil nilai dari select box
+          const paymentMethod = document.getElementById("payment-method").value;
+
+          if (!fullName || !email) {
+            alert("Harap isi Nama Lengkap dan Alamat Email.");
+            return;
+          }
+
+          const checkoutData = {
+            customerName: fullName,
+            customerEmail: email,
+            paymentMethod,
+            totalAmount: "150123",
+            checkoutTime: new Date().toISOString(),
+          };
+          console.log("--- DATA CHECKOUT SIAP DIKIRIM KE PAYMENT GATEWAY ---");
+          console.log(JSON.stringify(checkoutData, null, 2));
+          alert(
+            `Terima kasih, ${fullName}!\n\nInstruksi pembayaran via ${paymentMethod} akan segera dikirim ke email Anda di ${email}.`
+          );
+          document.getElementById("checkout-form").reset();
+        });
+    </script>
+  </body>
+</html>

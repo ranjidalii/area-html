@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Meta SEO untuk Artikel (Penting) -->
+    <title>Judul Berita Utama yang Sangat Menarik - BeritaKini</title>
+    <meta name="description" content="Ini adalah deskripsi singkat atau cuplikan dari berita utama untuk memberikan konteks kepada pembaca.">
+    <!-- Meta keywords bisa diisi dengan tag artikel -->
+    <meta name="keywords" content="internasional, berita penting, analisis, beritakini">
+
+    <!-- Memuat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Memuat plugin 'prose' untuk styling artikel yang rapi -->
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <style>
+        /* Menggunakan font Inter yang bersih dan modern */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Menambahkan scroll behavior smooth untuk tombol back-to-top */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+
+    <!-- Schema.org Markup (SEO) untuk Artikel Berita -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "Judul Berita Utama yang Sangat Menarik dan Penting Hari Ini",
+      "image": [
+        "https://placehold.co/800x600/eee/777?text=Berita+Utama"
+       ],
+      "datePublished": "2025-11-04T09:00:00+07:00",
+      "dateModified": "2025-11-04T09:00:00+07:00",
+      "author": [{
+          "@type": "Person",
+          "name": "Tim Redaksi",
+          "url": "https://www.beritakini-contoh.com/author/tim-redaksi"
+        }],
+      "publisher": {
+          "@type": "Organization",
+          "name": "BeritaKini",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://placehold.co/200x60/eee/777?text=Logo+BeritaKini"
+          }
+       },
+      "description": "Ini adalah deskripsi singkat atau cuplikan dari berita utama untuk memberikan konteks kepada pembaca."
+    }
+    </script>
+</head>
+<body class="bg-white text-gray-800">
+
+    <!-- 1. Header & Navigasi (Sticky) - Sama seperti index.html -->
+    <header class="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-sm border-b border-gray-200">
+        <div class="container mx-auto max-w-6xl flex flex-col md:flex-row justify-between items-center py-4 px-4 md:px-0">
+            <!-- Logo / Judul Situs -->
+            <h1 class="text-3xl font-extrabold text-gray-900 mb-4 md:mb-0">
+                <a href="index.html">BeritaKini</a> <!-- Link kembali ke index -->
+            </h1>
+            
+            <!-- Menu Navigasi -->
+            <nav class="flex items-center space-x-4 md:space-x-6">
+                <ul class="flex space-x-4 md:space-x-6">
+                    <li><a href="index.html" class="text-gray-600 hover:text-blue-600">Home</a></li> <!-- Home tidak bold -->
+                    <li><a href="#" class="text-gray-600 hover:text-blue-600">Nasional</a></li>
+                    <li><a href="#" class="font-semibold text-gray-900 hover:text-blue-600">Internasional</a></li> <!-- Kategori aktif -->
+                    <li><a href="#" class="text-gray-600 hover:text-blue-600">Olahraga</a></li>
+                    <li><a href="#" class="text-gray-600 hover:text-blue-600">Teknologi</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Kontainer Utama -->
+    <div class="container mx-auto max-w-6xl p-4 md:p-8">
+
+        <!-- Ruang Iklan Leaderboard (970x90 atau 728x90) -->
+        <div class="my-4 md:my-6 text-center">
+            <div class="bg-gray-200 w-full max-w-4xl h-24 mx-auto flex items-center justify-center text-gray-500 rounded-lg">
+                Ruang Iklan (Leaderboard 728x90)
+            </div>
+        </div>
+
+        <!-- 2. Konten Artikel & Sidebar -->
+        <main class="mt-8">
+            <div class="flex flex-col-reverse md:flex-row gap-12">
+
+                <!-- Kolom Artikel (Utama) -->
+                <div class="w-full md:w-2/3">
+                    <article>
+                        <!-- Breadcrumbs -->
+                        <nav class="text-sm text-gray-500 mb-2">
+                            <a href="index.html" class="hover:underline">Home</a>
+                            <span class="mx-1">&gt;</span>
+                            <a href="#" class="hover:underline">Internasional</a>
+                        </nav>
+                        
+                        <!-- Kategori -->
+                        <span class="text-sm font-semibold text-blue-600 uppercase tracking-wide">Internasional</span>
+                        
+                        <!-- Judul Artikel -->
+                        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 my-3 leading-tight">
+                            Judul Berita Utama yang Sangat Menarik dan Penting Hari Ini
+                        </h1>
+                        
+                        <!-- Meta Penulis & Tanggal -->
+                        <p class="text-gray-500 text-sm">
+                            Oleh <a href="#" class="font-semibold text-gray-700 hover:underline">Tim Redaksi</a> 
+                            | Diterbitkan 4 November 2025
+                        </p>
+                        
+                        <!-- Gambar Utama Artikel -->
+                        <img src="https://placehold.co/800x600/eee/777?text=Berita+Utama" alt="Gambar Berita Utama" class="w-full h-auto object-cover rounded-lg shadow-md my-6">
+
+                        <!-- Isi Konten Artikel -->
+                        <!-- Menggunakan class `prose` dari plugin typography tailwind untuk styling otomatis -->
+                        <div class="prose prose-lg max-w-none text-gray-800">
+                            <p class="lead">Ini adalah paragraf pembuka (lead paragraph) yang memberikan ringkasan singkat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            
+                            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Suspendisse ultrices gravida dictum fusce ut. Velit egestas dui id ornare arcu.</p>
+
+                            <h2>Sub Judul: Analisis Mendalam</h2>
+                            <p>Purus sit amet luctus venenatis lectus magna. Et netus et malesuada fames ac turpis egestas. Sed odio morbi quis commodo odio aenean sed. Amet nisl purus in mollis nunc sed id semper. </p>
+                            
+                            <ul>
+                                <li>Poin penting pertama dalam analisis.</li>
+                                <li>Poin penting kedua yang harus diperhatikan.</li>
+                                <li>Kesimpulan sementara dari poin-poin di atas.</li>
+                            </ul>
+
+                            <blockquote>
+                                "Ini adalah kutipan penting dari seorang narasumber atau ahli, yang menyoroti inti dari permasalahan."
+                            </blockquote>
+
+                            <p>Viverra maecenas accumsan lacus vel facilisis. Nibh nisl condimentum id venenatis a condimentum vitae. Neque sodales ut etiam sit amet nisl purus. Erat pellentesque adipiscing commodo elit at imperdiet dui. </p>
+
+                            <h3>Sub-sub Judul: Data Pendukung</h3>
+                            <p>Commodo ullamcorper a lacus vestibulum sed arcu non. Diam maecenas ultricies mi eget mauris pharetra et ultrices. Enim ut tellus elementum sagittis vitae et leo duis. </p>
+                        </div>
+
+                        <!-- Tags Artikel -->
+                        <div class="mt-8 border-t pt-4">
+                            <h5 class="font-semibold text-gray-700 mb-2">Tags:</h5>
+                            <div class="flex flex-wrap gap-2">
+                                <a href="#" class="text-sm bg-gray-100 text-gray-700 px-3 py-1 rounded-full hover:bg-gray-200">#Internasional</a>
+                                <a href="#" class_alias="text-sm bg-gray-100 text-gray-700 px-3 py-1 rounded-full hover:bg-gray-200">#Analisis</a>
+                                <a href="#" class_alias="text-sm bg-gray-100 text-gray-700 px-3 py-1 rounded-full hover:bg-gray-200">#Politik</a>
+                            </div>
+                        </div>
+
+                    </article>
+                </div>
+
+                <!-- Kolom Sidebar (Populer) - Sama seperti index.html -->
+                <aside class="w-full md:w-1/3">
+                    <div class="bg-white p-6 rounded-lg shadow-md sticky top-28"> 
+                        
+                        <!-- Ruang Iklan Sidebar (300x250) -->
+                        <div class="mb-5 text-center">
+                            <div class="bg-gray-200 w-full max-w-[300px] h-[250px] mx-auto flex items-center justify-center text-gray-500 rounded-lg">
+                                Ruang Iklan (300x250)
+                            </div>
+                        </div>
+                        
+                        <h4 class="text-xl font-bold text-gray-900 mb-5 border-b border-gray-200 pb-2">
+                            Berita Populer
+                        </h4>
+                        <ul class="space-y-4">
+                            <!-- Berita Populer 1 -->
+                            <li class="flex items-start gap-3">
+                                <span class="text-2xl font-bold text-gray-300">1</span>
+                                <div>
+                                    <a href="#" class="font-semibold text-gray-800 hover:underline">
+                                        Ini Alasan Mengapa Peristiwa A Menjadi Viral
+                                    </a>
+                                </div>
+                            </li>
+                            <!-- Berita Populer 2 -->
+                            <li class="flex items-start gap-3">
+                                <span class="text-2xl font-bold text-gray-300">2</span>
+                                <div>
+                                    <a href="#" class="font-semibold text-gray-800 hover:underline">
+                                        Analisis Mendalam Tentang Apa yang Terjadi Kemarin
+                                    </a>
+                                </div>
+                            </li>
+                            <!-- Berita Populer 3 -->
+                            <li class="flex items-start gap-3">
+                                <span class="text-2xl font-bold text-gray-300">3</span>
+                                <div>
+                                    <a href="#" class="font-semibold text-gray-800 hover:underline">
+                                        Tokoh Publik Memberikan Tanggapan Mengejutkan
+                                    </a>
+                                </div>
+                            </li>
+                            <!-- Berita Populer 4 -->
+                            <li class="flex items-start gap-3">
+                                <span class="text-2xl font-bold text-gray-300">4</span>
+                                <div>
+                                    <a href="#" class="font-semibold text-gray-800 hover:underline">
+                                        Panduan Lengkap: Cara Melakukan Sesuatu
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </aside>
+
+            </div>
+        </main>
+
+        <!-- 4. Footer - Sama seperti index.html -->
+        <footer class="mt-12 md:mt-16 border-t border-gray-200 pt-8 text-center text-gray-500 text-sm">
+            <div class="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-6 mb-4">
+                <a href="#" class="hover:text-gray-900">Tentang Kami</a>
+                <a href="#" class="hover:text-gray-900">Kontak</a>
+                <a href="#" class="hover:text-gray-900">Redaksi</a>
+                <a href="#" class="hover:text-gray-900">Kebijakan Privasi</a>
+                <a href="#" class="hover:text-gray-900">Pedoman Media Siber</a>
+            </div>
+            <p>&copy; 2025 BeritaKini. Semua hak cipta dilindungi.</p>
+        </footer>
+
+    </div>
+
+    <!-- Tombol Back to Top - Sama seperti index.html -->
+    <button id="back-to-top" class="hidden fixed bottom-6 right-6 z-50 p-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-300">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
+    </button>
+
+    <!-- Skrip untuk Fungsionalitas - Sama seperti index.html -->
+    <script>
+        (function() {
+            // --- Logika Tombol Back to Top ---
+            const backToTopBtn = document.getElementById('back-to-top');
+
+            // Tampilkan tombol saat scroll
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    backToTopBtn.classList.remove('hidden');
+                } else {
+                    backToTopBtn.classList.add('hidden');
+                }
+            });
+
+            // Scroll ke atas saat diklik
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    // behavior 'smooth' sudah diatur di CSS
+                });
+            });
+
+        })();
+    </script>
+
+</body>
+</html>

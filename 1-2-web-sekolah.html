@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sekolah Cipta Bangsa - Website Resmi</title>
+    
+    <!-- Tailwind CSS CDN --><script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        // Konfigurasi Tailwind CSS untuk tema oranye
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        orange: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            200: '#fed7aa',
+                            300: '#fdba74',
+                            400: '#fb923c',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                            800: '#9a3412',
+                            900: '#7c2d12',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* CSS Kustom untuk animasi dan fungsionalitas tambahan */
+        .has-mega-menu {
+            position: static;
+        }
+        .mega-menu {
+            display: none;
+            left: 0;
+            right: 0;
+            position: absolute;
+            text-align: left;
+            width: 100%;
+            top: 100%; 
+            padding-top: 1rem; /* Jarak antara nav dan menu */
+            transform: translateY(-1rem); /* Tarik ke atas untuk overlap */
+        }
+        
+        .has-mega-menu:hover .mega-menu {
+            display: block;
+        }
+
+        /* Animasi fade-in saat scroll */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-inter text-gray-800">
+
+    <!-- HEADER & NAVBAR STICKY --><header id="navbar" class="bg-white/80 backdrop-blur-lg fixed top-0 left-0 right-0 z-50 transition-all duration-300 shadow-sm">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <!-- LOGO --><div class="flex items-center space-x-2">
+                    <svg class="h-8 w-8 text-orange-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.627 48.627 0 0 1 12 20.904a48.627 48.627 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.57 50.57 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" />
+                    </svg>
+                    <a href="#" class="text-xl font-bold text-gray-800">Cipta Bangsa</a>
+                </div>
+                
+                <!-- MENU KANAN & CTA --><div class="flex items-center">
+                    <nav class="hidden lg:flex items-center space-x-8">
+                        <a href="#hero" class="text-gray-600 hover:text-orange-600 transition-colors py-6">Beranda</a>
+                        
+                        <div class="has-mega-menu group py-6">
+                            <a href="#profil" class="flex items-center text-gray-600 hover:text-orange-600 transition-colors">
+                                Profil
+                                <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                </svg>
+                            </a>
+                            <div class="mega-menu group-hover:block transition-all duration-300 ease-out">
+                               <div class="bg-white shadow-lg rounded-lg border-t-2 border-orange-500">
+                                 <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 p-8">
+                                    <div>
+                                        <h3 class="font-bold text-orange-600 mb-4">Tentang Sekolah</h3>
+                                        <ul class="space-y-3">
+                                            <li><a href="#" class="block hover:text-orange-500">Sejarah Sekolah</a></li>
+                                            <li><a href="#" class="block hover:text-orange-500">Visi & Misi</a></li>
+                                            <li><a href="#" class="block hover:text-orange-500">Sambutan Kepala Sekolah</a></li>
+                                            <li><a href="#" class="block hover:text-orange-500">Struktur Organisasi</a></li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-orange-600 mb-4">Akademik</h3>
+                                        <ul class="space-y-3">
+                                            <li><a href="#" class="block hover:text-orange-500">Kurikulum</a></li>
+                                            <li><a href="#" class="block hover:text-orange-500">Program Unggulan</a></li>
+                                            <li><a href="#" class="block hover:text-orange-500">Ekstrakurikuler</a></li>
+                                            <li><a href="#" class="block hover:text-orange-500">Kalender Akademik</a></li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-orange-600 mb-4">Fasilitas</h3>
+                                        <ul class="space-y-3">
+                                            <li><a href="#" class="block hover:text-orange-500">Perpustakaan Digital</a></li>
+                                            <li><a href="#" class="block hover:text-orange-500">Laboratorium Sains</a></li>
+                                            <li><a href="#" class="block hover:text-orange-500">Lapangan Olahraga</a></li>
+                                            <li><a href="#" class="block hover:text-orange-500">Kantin Sehat</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                               </div>
+                            </div>
+                        </div>
+
+                        <a href="#berita" class="text-gray-600 hover:text-orange-600 transition-colors py-6">Berita</a>
+                        <a href="#kontak" class="text-gray-600 hover:text-orange-600 transition-colors py-6">Kontak</a>
+                    </nav>
+
+                    <div class="flex items-center ml-4">
+                        <a href="#ppdb" class="hidden sm:inline-block bg-orange-600 text-white font-semibold px-5 py-2.5 rounded-lg shadow-md hover:bg-orange-700 transition-all duration-300 transform hover:scale-105">
+                            PPDB 2025
+                        </a>
+                        <button id="mobile-menu-button" class="lg:hidden text-gray-700 hover:text-orange-600 ml-4">
+                            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MENU MOBILE --><div id="mobile-menu" class="hidden lg:hidden flex-col space-y-4 py-4 border-t border-gray-200">
+                <a href="#hero" class="text-gray-600 hover:text-orange-600 transition-colors block">Beranda</a>
+                <a href="#profil" class="text-gray-600 hover:text-orange-600 transition-colors block">Profil</a>
+                <a href="#berita" class="text-gray-600 hover:text-orange-600 transition-colors block">Berita</a>
+                <a href="#kontak" class="text-gray-600 hover:text-orange-600 transition-colors block">Kontak</a>
+                 <a href="#ppdb" class="w-full mt-2 text-center bg-orange-600 text-white font-semibold px-5 py-2.5 rounded-lg shadow-md hover:bg-orange-700 transition-all duration-300">
+                    PPDB 2025
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO SECTION --><section id="hero" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-gradient-to-br from-orange-100 via-orange-50 to-orange-100">
+            <div class="container mx-auto px-4 text-center relative z-10">
+                <h1 class="text-4xl lg:text-6xl font-extrabold text-gray-800 mb-4 leading-tight">Membentuk Generasi Unggul, Kreatif, dan Berkarakter</h1>
+                <p class="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto mb-8">Selamat datang di Sekolah Cipta Bangsa, tempat terbaik untuk mengembangkan potensi dan meraih masa depan gemilang.</p>
+                <a href="#ppdb" class="bg-orange-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-orange-700 transition-all duration-300 transform hover:scale-105 inline-block">
+                    Daftar Sekarang
+                </a>
+            </div>
+        </section>
+
+        <!-- PROFIL SEKOLAH --><section id="profil" class="py-20 bg-white">
+            <div class="container mx-auto px-4 fade-in-section">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <img src="https://placehold.co/600x400/f97316/white?text=Gedung+Sekolah" alt="Gedung Sekolah Cipta Bangsa" class="rounded-xl shadow-2xl w-full">
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800 mb-4">Profil Sekolah Cipta Bangsa</h2>
+                        <p class="text-gray-600 mb-6">Sekolah Cipta Bangsa berkomitmen untuk menyediakan pendidikan berkualitas yang seimbang antara akademik, pengembangan karakter, dan keterampilan abad ke-21. Dengan dukungan fasilitas modern dan tenaga pengajar profesional, kami siap mengantarkan putra-putri Anda menjadi pemimpin masa depan.</p>
+                        <div class="flex space-x-8">
+                            <div>
+                                <p class="text-3xl font-bold text-orange-600">1000+</p>
+                                <p class="text-gray-500">Siswa Aktif</p>
+                            </div>
+                             <div>
+                                <p class="text-3xl font-bold text-orange-600">50+</p>
+                                <p class="text-gray-500">Program Ekstra</p>
+                            </div>
+                             <div>
+                                <p class="text-3xl font-bold text-orange-600">98%</p>
+                                <p class="text-gray-500">Lulusan Terbaik</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATISTIK/COUNT SECTION --><section id="statistik" class="py-20 bg-orange-50">
+            <div class="container mx-auto px-4 fade-in-section">
+                <div class="text-center mb-12">
+                     <h2 class="text-3xl font-bold text-gray-800">Cipta Bangsa dalam Angka</h2>
+                     <p class="text-gray-600 mt-2">Komitmen kami terhadap kualitas tercermin dalam data.</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 text-center">
+                    <!-- Stat Item 1 --><div class="bg-white p-6 rounded-xl shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <div class="bg-orange-100 text-orange-600 rounded-full p-3 inline-block mb-4">
+                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>
+                        </div>
+                        <p class="text-3xl font-bold text-orange-600">A</p>
+                        <p class="text-gray-500 mt-1">Akreditasi</p>
+                    </div>
+                     <!-- Stat Item 2 --><div class="bg-white p-6 rounded-xl shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <div class="bg-orange-100 text-orange-600 rounded-full p-3 inline-block mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
+                        </div>
+                        <p class="text-3xl font-bold text-orange-600">20+</p>
+                        <p class="text-gray-500 mt-1">Sarana & Prasarana</p>
+                    </div>
+                     <!-- Stat Item 3 --><div class="bg-white p-6 rounded-xl shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <div class="bg-orange-100 text-orange-600 rounded-full p-3 inline-block mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+                        </div>
+                        <p class="text-3xl font-bold text-orange-600">40</p>
+                        <p class="text-gray-500 mt-1">Ruang Kelas</p>
+                    </div>
+                     <!-- Stat Item 4 --><div class="bg-white p-6 rounded-xl shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <div class="bg-orange-100 text-orange-600 rounded-full p-3 inline-block mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                        </div>
+                        <p class="text-3xl font-bold text-orange-600">1000+</p>
+                        <p class="text-gray-500 mt-1">Siswa</p>
+                    </div>
+                     <!-- Stat Item 5 --><div class="bg-white p-6 rounded-xl shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <div class="bg-orange-100 text-orange-600 rounded-full p-3 inline-block mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 14l9-5-9-5-9 5 9 5z" /><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222 4 2.222V20" /></svg>
+                        </div>
+                        <p class="text-3xl font-bold text-orange-600">75+</p>
+                        <p class="text-gray-500 mt-1">Tenaga Pendidik</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GURU SECTION --><section id="guru" class="py-20">
+            <div class="container mx-auto px-4 fade-in-section">
+                <div class="text-center mb-12">
+                     <h2 class="text-3xl font-bold text-gray-800">Tenaga Pendidik Profesional</h2>
+                     <p class="text-gray-600 mt-2">Mereka adalah pilar pendidikan di Sekolah Cipta Bangsa.</p>
+                </div>
+                 <!-- Carousel Container -->
+                <div class="relative overflow-hidden group">
+                    <div id="guru-carousel-track" class="flex">
+                        <!-- Card Guru (akan diduplikasi oleh JS) -->
+                        <div class="p-4 flex-shrink-0 w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5">
+                            <div class="bg-white rounded-xl shadow-lg overflow-hidden text-center transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+                                <img src="https://placehold.co/400x500/fed7aa/7c2d12?text=Guru+1" alt="Foto Guru" class="w-full h-64 object-cover">
+                                <div class="p-6">
+                                    <h3 class="font-bold text-lg text-gray-800">Ahmad Prasetyo, S.Pd.</h3>
+                                    <p class="text-sm text-orange-600 font-semibold">Guru Matematika</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-shrink-0 w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5">
+                            <div class="bg-white rounded-xl shadow-lg overflow-hidden text-center transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+                                <img src="https://placehold.co/400x500/fed7aa/7c2d12?text=Guru+2" alt="Foto Guru" class="w-full h-64 object-cover">
+                                <div class="p-6">
+                                    <h3 class="font-bold text-lg text-gray-800">Siti Nurhaliza, M.Sn.</h3>
+                                    <p class="text-sm text-orange-600 font-semibold">Guru Seni Budaya</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-shrink-0 w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5">
+                            <div class="bg-white rounded-xl shadow-lg overflow-hidden text-center transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+                                <img src="https://placehold.co/400x500/fed7aa/7c2d12?text=Guru+3" alt="Foto Guru" class="w-full h-64 object-cover">
+                                <div class="p-6">
+                                    <h3 class="font-bold text-lg text-gray-800">Dr. Budi Santoso</h3>
+                                    <p class="text-sm text-orange-600 font-semibold">Guru Bimbingan Konseling</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-shrink-0 w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5">
+                            <div class="bg-white rounded-xl shadow-lg overflow-hidden text-center transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+                                <img src="https://placehold.co/400x500/fed7aa/7c2d12?text=Guru+4" alt="Foto Guru" class="w-full h-64 object-cover">
+                                <div class="p-6">
+                                    <h3 class="font-bold text-lg text-gray-800">Dewi Lestari, S.S.</h3>
+                                    <p class="text-sm text-orange-600 font-semibold">Guru Bahasa Indonesia</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-shrink-0 w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5">
+                            <div class="bg-white rounded-xl shadow-lg overflow-hidden text-center transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+                                <img src="https://placehold.co/400x500/fed7aa/7c2d12?text=Guru+5" alt="Foto Guru" class="w-full h-64 object-cover">
+                                <div class="p-6">
+                                    <h3 class="font-bold text-lg text-gray-800">Eko Wibowo, M.Kom.</h3>
+                                    <p class="text-sm text-orange-600 font-semibold">Guru TIK</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-shrink-0 w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5">
+                            <div class="bg-white rounded-xl shadow-lg overflow-hidden text-center transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+                                <img src="https://placehold.co/400x500/fed7aa/7c2d12?text=Guru+6" alt="Foto Guru" class="w-full h-64 object-cover">
+                                <div class="p-6">
+                                    <h3 class="font-bold text-lg text-gray-800">Rina Handayani, S.Pd.</h3>
+                                    <p class="text-sm text-orange-600 font-semibold">Guru IPA</p>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="p-4 flex-shrink-0 w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5">
+                            <div class="bg-white rounded-xl shadow-lg overflow-hidden text-center transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+                                <img src="https://placehold.co/400x500/fed7aa/7c2d12?text=Guru+7" alt="Foto Guru" class="w-full h-64 object-cover">
+                                <div class="p-6">
+                                    <h3 class="font-bold text-lg text-gray-800">Joko Susilo, M.Pd.</h3>
+                                    <p class="text-sm text-orange-600 font-semibold">Guru Olahraga</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GALERI SECTION --><section id="galeri" class="py-20 bg-white">
+            <div class="container mx-auto px-4 fade-in-section">
+                <div class="text-center mb-12">
+                     <h2 class="text-3xl font-bold text-gray-800">Galeri Kegiatan</h2>
+                     <p class="text-gray-600 mt-2">Momen-momen berharga di Sekolah Cipta Bangsa.</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="group relative overflow-hidden rounded-xl">
+                        <img src="https://placehold.co/400x400/fb923c/white?text=Upacara" alt="Kegiatan Upacara" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors duration-300 flex items-end p-4">
+                            <p class="text-white font-semibold">Upacara Bendera</p>
+                        </div>
+                    </div>
+                    <div class="group relative overflow-hidden rounded-xl col-span-1 md:col-span-2">
+                        <img src="https://placehold.co/800x400/fb923c/white?text=Kegiatan+Lab" alt="Kegiatan Lab" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                         <div class="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors duration-300 flex items-end p-4">
+                            <p class="text-white font-semibold">Praktikum di Laboratorium</p>
+                        </div>
+                    </div>
+                    <div class="group relative overflow-hidden rounded-xl">
+                        <img src="https://placehold.co/400x400/fb923c/white?text=Olahraga" alt="Kegiatan Olahraga" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                         <div class="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors duration-300 flex items-end p-4">
+                            <p class="text-white font-semibold">Pekan Olahraga Siswa</p>
+                        </div>
+                    </div>
+                    <div class="group relative overflow-hidden rounded-xl col-span-1 md:col-span-2">
+                         <img src="https://placehold.co/800x400/fb923c/white?text=Pentas+Seni" alt="Pentas Seni" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                         <div class="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors duration-300 flex items-end p-4">
+                            <p class="text-white font-semibold">Pentas Seni Tahunan</p>
+                        </div>
+                    </div>
+                    <div class="group relative overflow-hidden rounded-xl">
+                        <img src="https://placehold.co/400x400/fb923c/white?text=Olimpiade" alt="Olimpiade" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                         <div class="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors duration-300 flex items-end p-4">
+                            <p class="text-white font-semibold">Olimpiade Sains</p>
+                        </div>
+                    </div>
+                     <div class="group relative overflow-hidden rounded-xl">
+                        <img src="https://placehold.co/400x400/fb923c/white?text=Perpustakaan" alt="Perpustakaan" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                         <div class="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors duration-300 flex items-end p-4">
+                            <p class="text-white font-semibold">Aktivitas Perpustakaan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+         <!-- BERITA TERKINI --><section id="berita" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-4 fade-in-section">
+                <div class="text-center mb-12">
+                     <h2 class="text-3xl font-bold text-gray-800">Berita & Kegiatan</h2>
+                     <p class="text-gray-600 mt-2">Ikuti informasi terbaru dari kegiatan sekolah kami.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Berita Card 1 -->
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 group">
+                        <img src="https://placehold.co/600x400/fed7aa/7c2d12?text=Prestasi" alt="Prestasi Siswa" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <p class="text-sm text-orange-600 font-semibold mb-2">Prestasi</p>
+                            <h3 class="font-bold text-lg mb-3">Siswa Cipta Bangsa Raih Juara 1 Olimpiade Sains Nasional</h3>
+                            <p class="text-gray-600 text-sm mb-4">Sebuah pencapaian luar biasa yang membanggakan nama sekolah di tingkat nasional.</p>
+                            <a href="#" class="font-semibold text-orange-600 group-hover:underline">Baca Selengkapnya &rarr;</a>
+                        </div>
+                    </div>
+                    <!-- Berita Card 2 -->
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 group">
+                        <img src="https://placehold.co/600x400/fed7aa/7c2d12?text=Kegiatan" alt="Kegiatan Sekolah" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <p class="text-sm text-orange-600 font-semibold mb-2">Kegiatan</p>
+                            <h3 class="font-bold text-lg mb-3">Pentas Seni Tahunan Meriah, Tampilkan Bakat Siswa</h3>
+                            <p class="text-gray-600 text-sm mb-4">Acara tahunan ini kembali sukses digelar dengan menampilkan berbagai kreativitas siswa.</p>
+                            <a href="#" class="font-semibold text-orange-600 group-hover:underline">Baca Selengkapnya &rarr;</a>
+                        </div>
+                    </div>
+                    <!-- Berita Card 3 -->
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 group">
+                        <img src="https://placehold.co/600x400/fed7aa/7c2d12?text=Informasi" alt="Informasi Sekolah" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <p class="text-sm text-orange-600 font-semibold mb-2">Informasi</p>
+                            <h3 class="font-bold text-lg mb-3">Jadwal Ujian Akhir Semester Genap Tahun Ajaran 2024/2025</h3>
+                            <p class="text-gray-600 text-sm mb-4">Informasi penting bagi seluruh siswa dan orang tua mengenai jadwal pelaksanaan UAS.</p>
+                            <a href="#" class="font-semibold text-orange-600 group-hover:underline">Baca Selengkapnya &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA PPDB --><section id="ppdb" class="py-20 bg-orange-600">
+            <div class="container mx-auto px-4 text-center fade-in-section">
+                <h2 class="text-3xl font-extrabold text-white mb-4">Penerimaan Peserta Didik Baru (PPDB) Telah Dibuka!</h2>
+                <p class="text-orange-100 max-w-2xl mx-auto mb-8">Jadilah bagian dari keluarga besar Sekolah Cipta Bangsa. Daftarkan putra-putri Anda dan wujudkan impian mereka bersama kami.</p>
+                <a href="#" class="bg-white text-orange-600 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-orange-50 transition-all duration-300 transform hover:scale-105 inline-block">
+                    Informasi & Pendaftaran
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER --><footer id="kontak" class="bg-gray-800 text-white">
+        <div class="container mx-auto px-4 py-16">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Tentang --><div>
+                     <h3 class="text-lg font-semibold mb-4">Sekolah Cipta Bangsa</h3>
+                     <p class="text-gray-400">Jl. Pendidikan No. 123, Kota Harapan, Indonesia 12345</p>
+                     <p class="text-gray-400 mt-2">Email: info@ciptabangsa.sch.id</p>
+                     <p class="text-gray-400 mt-2">Telepon: (021) 123-4567</p>
+                </div>
+                <!-- Akademik --><div>
+                     <h3 class="text-lg font-semibold mb-4">Akademik</h3>
+                     <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Kurikulum</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Ekstrakurikuler</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Program Unggulan</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Kalender Akademik</a></li>
+                     </ul>
+                </div>
+                <!-- Tautan Cepat --><div>
+                     <h3 class="text-lg font-semibold mb-4">Tautan Cepat</h3>
+                     <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Galeri</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Alumni</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Karir</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">FAQ</a></li>
+                     </ul>
+                </div>
+                <!-- Social Media --><div>
+                    <h3 class="text-lg font-semibold mb-4">Ikuti Kami</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.71v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" /></svg></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.024.06 1.378.06 3.808s-.012 2.784-.06 3.808c-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.024.048-1.378.06-3.808.06s-2.784-.013-3.808-.06c-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.048-1.024-.06-1.378-.06-3.808s.012-2.784.06-3.808c.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 016.345 2.525c.636-.247 1.363-.416 2.427-.465C9.793 2.013 10.147 2 12.315 2zm-1.161 4.573a.75.75 0 01.75.75v5.332l.001.002.002.001.002.002.001.001a.75.75 0 01-1.5 0v-5.332a.75.75 0 01.75-.75zm2.81 0a.75.75 0 01.75.75v5.332a.75.75 0 01-1.5 0v-5.332a.75.75 0 01.75-.75z" clip-rule="evenodd" /><path d="M12 1.25a10.75 10.75 0 100 21.5 10.75 10.75 0 000-21.5zM12 3a9.25 9.25 0 110 18.5 9.25 9.25 0 010-18.5z" /></svg></a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 border-t border-gray-700 pt-8 text-center text-gray-400 text-sm">
+                &copy; 2024 Sekolah Cipta Bangsa. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCROLL TO TOP BUTTON --><button id="scroll-to-top" class="hidden fixed bottom-8 right-8 bg-orange-600 text-white p-3 rounded-full shadow-lg hover:bg-orange-700 transition-all duration-300 z-50">
+        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
+        </svg>
+    </button>
+    
+
+    <!-- JAVASCRIPT --><script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const navbar = document.getElementById('navbar');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const scrollToTopButton = document.getElementById('scroll-to-top');
+
+            // 1. Navbar menjadi sticky dan berubah style saat scroll
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('shadow-md');
+                    navbar.classList.remove('bg-white/80');
+                    navbar.classList.add('bg-white/95');
+                } else {
+                    navbar.classList.remove('shadow-md');
+                    navbar.classList.add('bg-white/80');
+                    navbar.classList.remove('bg-white/95');
+                }
+            });
+
+            // 2. Toggle Menu Mobile
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // 3. Scroll to Top Button
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    scrollToTopButton.classList.remove('hidden');
+                } else {
+                    scrollToTopButton.classList.add('hidden');
+                }
+            });
+            scrollToTopButton.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // 4. Animasi fade-in saat elemen masuk viewport
+            const sections = document.querySelectorAll('.fade-in-section');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // 5. Guru Carousel Looping
+            const carouselContainer = document.querySelector('#guru .relative.overflow-hidden');
+            const track = document.getElementById('guru-carousel-track');
+            if (track) {
+                const slides = Array.from(track.children);
+                slides.forEach(slide => {
+                    const clone = slide.cloneNode(true);
+                    track.appendChild(clone);
+                });
+
+                const slideWidth = slides[0].offsetWidth;
+                const totalWidth = slideWidth * slides.length;
+
+                // CSS Animation
+                const animationName = 'scroll';
+                const animationDuration = slides.length * 5; // 5 seconds per slide
+                
+                const style = document.createElement('style');
+                style.innerHTML = `
+                    @keyframes ${animationName} {
+                        0% { transform: translateX(0); }
+                        100% { transform: translateX(-${totalWidth}px); }
+                    }
+                    #guru-carousel-track {
+                        animation: ${animationName} ${animationDuration}s linear infinite;
+                    }
+                    #guru .group:hover #guru-carousel-track {
+                        animation-play-state: paused;
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        });
+    </script>
+</body>
+</html>
+

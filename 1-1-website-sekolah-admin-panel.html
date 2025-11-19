@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Panel Admin untuk Website Sekolah" />
+    <title>Manajemen Berita - Admin Panel</title>
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Bootstrap core CSS (dari CDN) -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+
+    <!-- Style tambahan jika diperlukan -->
+    <style>
+      /* Memberi sedikit efek hover pada kartu dashboard */
+      .dashboard-card {
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+      }
+      .dashboard-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+      }
+      /* Style untuk tabel agar lebih rapi */
+      .table th {
+        white-space: nowrap;
+      }
+      .table td {
+        vertical-align: middle;
+      }
+    </style>
+  </head>
+
+  <body class="d-flex flex-column min-vh-100">
+    <main class="flex-grow-1">
+      <!-- HEADER -->
+      <header class="p-3 border-bottom shadow-sm">
+        <div class="container">
+          <div
+            class="d-flex flex-wrap align-items-center justify-content-between"
+          >
+            <!-- Logo kiri -->
+            <a
+              href="/"
+              class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none"
+            >
+              <!-- Placeholder logo sekolah -->
+              <i class="bi bi-buildings-fill fs-4 me-2"></i>
+              <span class="fs-5 fw-bold">Nama Sekolah</span>
+            </a>
+
+            <!-- Menu nav tengah -->
+            <ul class="nav me-auto mb-2 mb-lg-0 ps-4">
+              <li>
+                <a href="#" class="nav-link px-2 link-secondary"
+                  >PANEL ADMIN SEKOLAH</a
+                >
+              </li>
+            </ul>
+
+            <!-- User avatar kanan -->
+            <div class="dropdown text-end ms-auto">
+              <a
+                href="#"
+                class="d-block link-dark text-decoration-none dropdown-toggle"
+                id="dropdownUser1"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <img
+                  src="https://placehold.co/32x32/EBF4FF/76A9FA?text=A"
+                  alt="mdo"
+                  width="32"
+                  height="32"
+                  class="rounded-circle"
+                  onerror="this.src='https://placehold.co/32x32?text=A'"
+                />
+              </a>
+              <ul
+                class="dropdown-menu text-small"
+                aria-labelledby="dropdownUser1"
+              >
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><a class="dropdown-item" href="#">Ganti Password</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" href="#">Logout</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- NAVIGASI UTAMA (VERSI SEKOLAH) -->
+      <nav
+        class="navbar navbar-expand-lg navbar-dark bg-dark"
+        aria-label="Navigasi Utama Panel Admin"
+      >
+        <div class="container">
+          <button
+            class="navbar-toggler text-end ms-auto"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarsAdmin"
+            aria-controls="navbarsAdmin"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarsAdmin">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-wrap">
+              <!-- Menu Dashboard -->
+              <li class="nav-item">
+                <a class="nav-link" href="#"
+                  ><i class="bi bi-speedometer2 me-1"></i> Dashboard</a
+                >
+              </li>
+
+              <!-- Menu Akademik -->
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="dropAkademik"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  ><i class="bi bi-mortarboard-fill me-1"></i> Akademik</a
+                >
+                <ul class="dropdown-menu" aria-labelledby="dropAkademik">
+                  <li>
+                    <a class="dropdown-item" href="#"
+                      ><i class="bi bi-people-fill me-2"></i> Manajemen Siswa</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#"
+                      ><i class="bi bi-person-badge-fill me-2"></i> Manajemen
+                      Guru</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#"
+                      ><i class="bi bi-door-open-fill me-2"></i> Manajemen
+                      Kelas</a
+                    >
+                  </li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li>
+                    <a class="dropdown-item" href="#"
+                      ><i class="bi bi-book-fill me-2"></i> Mata Pelajaran</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#"
+                      ><i class="bi bi-calendar-week-fill me-2"></i> Jadwal
+                      Pelajaran</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#"
+                      ><i class="bi bi-file-earmark-text-fill me-2"></i> Nilai
+                      & Rapor</a
+                    >
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Menu Keuangan -->
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="dropKeuangan"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  ><i class="bi bi-wallet-fill me-1"></i> Keuangan</a
+                >
+                <ul class="dropdown-menu" aria-labelledby="dropKeuangan">
+                  <li>
+                    <a class="dropdown-item" href="#"
+                      ><i class="bi bi-receipt me-2"></i> Pembayaran SPP</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#"
+                      ><i class="bi bi-cash-coin me-2"></i> Gaji Guru</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#"
+                      ><i class="bi bi-bar-chart-line-fill me-2"></i> Laporan
+                      Keuangan</a
+                    >
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Menu Non-Akademik -->
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="dropNonAkademik"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  ><i class="bi bi-puzzle-fill me-1"></i> Non-Akademik</a
+                >
+                <ul class="dropdown-menu" aria-labelledby="dropNonAkademik">
+                  <li>
+                    <a class="dropdown-item" href="#"
+                      ><i class="bi bi-check-circle-fill me-2"></i> Absensi</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#"
+                      ><i class="bi bi-award-fill me-2"></i> Ekstrakurikuler</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#"
+                      ><i class="bi bi-journal-bookmark-fill me-2"></i>
+                      Perpustakaan</a
+                    >
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Menu Manajemen Website (AKTIF) -->
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle active"
+                  aria-current="page"
+                  href="#"
+                  id="dropWebsite"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  ><i class="bi bi-display-fill me-1"></i> Website</a
+                >
+                <ul class="dropdown-menu" aria-labelledby="dropWebsite">
+                  <li>
+                    <a class="dropdown-item active" href="#"
+                      ><i class="bi bi-newspaper me-2"></i> Berita & Artikel</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#"
+                      ><i class="bi bi-megaphone-fill me-2"></i> Pengumuman</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#"
+                      ><i class="bi bi-images me-2"></i> Galeri Foto</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#"
+                      ><i class="bi bi-file-earmark-richtext-fill me-2"></i>
+                      Halaman Statis</a
+                    >
+                  </li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li>
+                    <a class="dropdown-item" href="#"
+                      ><i class="bi bi-image-fill me-2"></i> Pengaturan Hero</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#"
+                      ><i class="bi bi-list-task me-2"></i> Manajemen Menu</a
+                    >
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Menu Pengaturan -->
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="dropSettings"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  ><i class="bi bi-gear-fill me-1"></i> Pengaturan</a
+                >
+                <ul class="dropdown-menu" aria-labelledby="dropSettings">
+                  <li>
+                    <a class="dropdown-item" href="#"
+                      ><i class="bi bi-person-lock-fill me-2"></i> Pengguna
+                      Sistem</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#"
+                      ><i class="bi bi-sliders me-2"></i> Pengaturan Umum</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#"
+                      ><i class="bi bi-share-fill me-2"></i> Media Sosial</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#"
+                      ><i class="bi bi-calendar-event-fill me-2"></i> Tahun
+                      Ajaran</a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!-- KONTEN UTAMA - MANAJEMEN BERITA -->
+      <div class="container bg-light rounded my-4 py-4">
+        <!-- Judul Halaman -->
+        <div class="d-flex justify-content-between align-items-center">
+          <h2 class="border-bottom pb-2 mb-4">Manajemen Berita & Artikel</h2>
+          <a href="#" class="btn btn-primary mb-3 shadow-sm">
+            <i class="bi bi-plus-circle-fill me-2"></i> Tambah Berita Baru
+          </a>
+        </div>
+
+        <!-- TABEL MANAJEMEN KONTEN (CMS) -->
+        <div class="card shadow-sm border-0 rounded-3">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover align-middle">
+                <thead class="table-light">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Judul Berita</th>
+                    <th scope="col">Kategori</th>
+                    <th scope="col">Penulis</th>
+                    <th scope="col">Tanggal Publikasi</th>
+                    <th scope="col" class="text-end">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Contoh Data 1 -->
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>
+                      Peringatan Hari Kemerdekaan ke-80 di Sekolah Berlangsung
+                      Mer..."
+                    </td>
+                    <td>
+                      <span class="badge bg-primary-subtle text-primary-emphasis"
+                        >Sekolah</span
+                      >
+                    </td>
+                    <td>Admin</td>
+                    <td>28 Okt 2025</td>
+                    <td class="text-end" style="min-width: 150px">
+                      <a
+                        href="#"
+                        class="btn btn-outline-warning btn-sm me-2 mb-1"
+                        title="Edit"
+                      >
+                        <i class="bi bi-pencil-fill"></i> Edit
+                      </a>
+                      <a
+                        href="#"
+                        class="btn btn-outline-danger btn-sm"
+                        title="Hapus"
+                      >
+                        <i class="bi bi-trash-fill"></i> Hapus
+                      </a>
+                    </td>
+                  </tr>
+                  <!-- Contoh Data 2 -->
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Siswa Raih Juara 1 Lomba Cerdas Cermat Tingkat Nasional</td>
+                    <td>
+                      <span
+                        class="badge bg-success-subtle text-success-emphasis"
+                        >Prestasi</span
+                      >
+                    </td>
+                    <td>Humas</td>
+                    <td>25 Okt 2025</td>
+                    <td class="text-end">
+                      <a
+                        href="#"
+                        class="btn btn-outline-warning btn-sm me-2"
+                        title="Edit"
+                      >
+                        <i class="bi bi-pencil-fill mb-1"></i> Edit
+                      </a>
+                      <a
+                        href="#"
+                        class="btn btn-outline-danger btn-sm"
+                        title="Hapus"
+                      >
+                        <i class="bi bi-trash-fill"></i> Hapus
+                      </a>
+                    </td>
+                  </tr>
+                  <!-- Contoh Data 3 -->
+                  <tr>
+                    <th scope="row">3</th>
+                    <td>Jadwal Ujian Akhir Semester Ganjil 2025/2026</td>
+                    <td>
+                      <span class="badge bg-info-subtle text-info-emphasis"
+                        >Akademik</span
+                      >
+                    </td>
+                    <td>Admin</td>
+                    <td>22 Okt 2025</td>
+                    <td class="text-end">
+                      <a
+                        href="#"
+                        class="btn btn-outline-warning btn-sm me-2"
+                        title="Edit"
+                      >
+                        <i class="bi bi-pencil-fill mb-1"></i> Edit
+                      </a>
+                      <a
+                        href="#"
+                        class="btn btn-outline-danger btn-sm"
+                        title="Hapus"
+                      >
+                        <i class="bi bi-trash-fill"></i> Hapus
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Paginasi -->
+            <nav
+              aria-label="Page navigation"
+              class="d-flex justify-content-center pt-3"
+            >
+              <ul class="pagination">
+                <li class="page-item disabled">
+                  <a class="page-link" href="#" tabindex="-1">Previous</a>
+                </li>
+                <li class="page-item active">
+                  <a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                  <a class="page-link" href="#">Next</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="pt-3 mt-4 text-white bg-dark">
+      <div class="container">
+        <p class="text-center text-muted text-white-50">
+          &copy; 2025 Nama Sekolah. Dibuat dengan
+          <i class="bi bi-heart-fill text-danger"></i>.
+        </p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JS (dari CDN) -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
+
+
