@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevHouse Management System</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- DataTables Bootstrap 5 CSS -->
+    <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <!-- DataTables Responsive CSS (NEW) -->
+    <link href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap5.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f6f9;
+        }
+        
+        /* Sidebar Styling */
+        #sidebar {
+            min-width: 250px;
+            max-width: 250px;
+            min-height: 100vh;
+            transition: all 0.3s;
+            background-color: #212529;
+            margin-left: 0; /* Default Desktop: Show */
+            position: fixed; /* Fixed for better mobile experience */
+            z-index: 999;
+            height: 100%;
+            overflow-y: auto;
+        }
+        
+        /* Main Content Wrapper to accommodate fixed sidebar on desktop */
+        #main-wrapper {
+            width: 100%;
+            transition: all 0.3s;
+            margin-left: 250px; /* Space for sidebar */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure full height for footer sticky */
+        }
+        
+        /* Toggled State on Desktop (Hidden) */
+        #sidebar.active {
+            margin-left: -250px;
+        }
+        
+        #sidebar.active + #main-wrapper {
+            margin-left: 0;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            #sidebar {
+                margin-left: -250px; /* Default Mobile: Hidden */
+            }
+            
+            #sidebar.active {
+                margin-left: 0; /* Toggled Mobile: Show */
+                box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+            }
+            
+            #main-wrapper {
+                margin-left: 0; /* No margin on mobile */
+            }
+            
+            #sidebar.active + #main-wrapper {
+                margin-left: 0; /* Keep content in place, sidebar overlays */
+            }
+
+            /* Overlay effect when sidebar is open on mobile */
+            .overlay {
+                display: none;
+                position: fixed;
+                width: 100vw;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 998;
+                opacity: 0;
+                transition: all 0.5s ease-in-out;
+            }
+            
+            .overlay.active {
+                display: block;
+                opacity: 1;
+            }
+        }
+        
+        .sidebar-header {
+            padding: 20px;
+            background: #1a1d20;
+            border-bottom: 1px solid #2c3034;
+        }
+        
+        .components {
+            padding: 20px 0;
+        }
+        
+        .components li a {
+            padding: 12px 20px;
+            font-size: 0.95em;
+            display: block;
+            color: #adb5bd;
+            text-decoration: none;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .components li a:hover, .components li a.active-link {
+            color: #fff;
+            background: #0d6efd;
+        }
+        
+        /* Card Styling */
+        .stat-card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .icon-box {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .table-custom {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .table-custom thead th {
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+            color: #6c757d;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        /* Utility */
+        .badge-soft-success { background-color: #d1e7dd; color: #0f5132; }
+        .badge-soft-warning { background-color: #fff3cd; color: #664d03; }
+        .badge-soft-danger { background-color: #f8d7da; color: #842029; }
+        .badge-soft-primary { background-color: #cfe2ff; color: #084298; }
+        .badge-soft-secondary { background-color: #e2e3e5; color: #41464b; }
+        .badge-soft-info { background-color: #cff4fc; color: #055160; }
+        
+        /* Hide sections initially except dashboard */
+        .content-section {
+            display: none;
+            animation: fadeIn 0.4s;
+        }
+        
+        .content-section.active-section {
+            display: block;
+        }
+        
+        /* DataTables Customization */
+        .dataTables_wrapper .dataTables_length select {
+            padding-right: 30px; 
+        }
+
+        /* Clean up Dashboard Table Wrapper */
+        #tableDashboard_wrapper .row {
+            margin: 0;
+            padding: 10px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Overlay for mobile sidebar -->
+    <div class="overlay" id="overlay"></div>
+
+    <div class="d-flex w-100">
+        <!-- Sidebar -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h4 class="text-white mb-0 fw-bold"><i class="bi bi-code-square text-primary"></i> DevHouse</h4>
+                <small class="text-muted">v1.0 Management System</small>
+            </div>
+
+            <ul class="list-unstyled components">
+                <li>
+                    <a href="#" onclick="showSection('dashboard', this)" class="active-link">
+                        <i class="bi bi-speedometer2"></i> Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="showSection('clients', this)">
+                        <i class="bi bi-people"></i> CRM & Klien
+                    </a>
+                </li>
+                <!-- Modul Data Proyek -->
+                <li>
+                    <a href="#" onclick="showSection('projectList', this)">
+                        <i class="bi bi-briefcase"></i> Data Proyek
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="showSection('projects', this)">
+                        <i class="bi bi-kanban"></i> Task Board (Kanban)
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="showSection('invoicing', this)">
+                        <i class="bi bi-receipt"></i> Keuangan & Invoice
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="showSection('employees', this)">
+                        <i class="bi bi-person-badge"></i> Data Karyawan
+                    </a>
+                </li>
+            </ul>
+        </nav>
+		
+		<nav id="sidebar">
+            <div class="sidebar-header">
+                <h4 class="text-white mb-0 fw-bold"><i class="bi bi-code-square text-primary"></i> DevHouse</h4>
+                <small class="text-muted">v1.0 Management System</small>
+            </div>
+
+            <ul class="list-unstyled components">
+                <li>
+                    <a href="#" onclick="showSection('dashboard', this)" class="active-link">
+                        <i class="bi bi-speedometer2"></i> Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="showSection('clients', this)">
+                        <i class="bi bi-people"></i> CRM & Klien
+                    </a>
+                </li>
+                <!-- Modul Data Proyek -->
+                <li>
+                    <a href="#" onclick="showSection('projectList', this)">
+                        <i class="bi bi-briefcase"></i> Data Proyek
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="showSection('projects', this)">
+                        <i class="bi bi-kanban"></i> Task Board (Kanban)
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="showSection('invoicing', this)">
+                        <i class="bi bi-receipt"></i> Keuangan & Invoice
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="showSection('employees', this)">
+                        <i class="bi bi-person-badge"></i> Data Karyawan
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Page Content Wrapper -->
+        <div id="main-wrapper">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom px-4 py-3 sticky-top">
+                <div class="container-fluid">
+                    <button type="button" id="sidebarCollapse" class="btn btn-light btn-sm me-3 border">
+                        <i class="bi bi-list"></i>
+                    </button>
+                    
+                    <span class="navbar-brand mb-0 h1 fs-6 fw-bold text-secondary" id="pageTitle">Dashboard Overview</span>
+
+                    <div class="ms-auto d-flex align-items-center gap-3">
+                        <div class="dropdown">
+                            <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle text-dark" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 35px; height: 35px;">A</div>
+                                <span class="d-none d-sm-inline small fw-bold">Admin User</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end text-small shadow" aria-labelledby="dropdownUser1">
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">Sign out</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main Content Area with Flex Grow -->
+            <div class="p-4 flex-grow-1">
+                
+                <!-- 1. DASHBOARD SECTION -->
+                <div id="dashboard" class="content-section active-section">
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="stat-card bg-white p-4 h-100">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <p class="text-muted small mb-1">Total Pendapatan</p>
+                                        <h4 class="fw-bold mb-0 fs-5">Rp 150.000.000</h4>
+                                        <small class="text-success" style="font-size: 0.75rem;"><i class="bi bi-arrow-up-short"></i> 12% bulan ini</small>
+                                    </div>
+                                    <div class="icon-box bg-success bg-opacity-10 text-success">
+                                        <i class="bi bi-currency-dollar"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="stat-card bg-white p-4 h-100">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <p class="text-muted small mb-1">Klien Aktif</p>
+                                        <h4 class="fw-bold mb-0">12 Klien</h4>
+                                    </div>
+                                    <div class="icon-box bg-primary bg-opacity-10 text-primary">
+                                        <i class="bi bi-people"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="stat-card bg-white p-4 h-100">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <p class="text-muted small mb-1">Proyek Berjalan</p>
+                                        <h4 class="fw-bold mb-0">5 Proyek</h4>
+                                    </div>
+                                    <div class="icon-box bg-info bg-opacity-10 text-info">
+                                        <i class="bi bi-laptop"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="stat-card bg-white p-4 h-100">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <p class="text-muted small mb-1">Leads (Prospek)</p>
+                                        <h4 class="fw-bold mb-0">8 Leads</h4>
+                                        <small class="text-warning" style="font-size: 0.75rem;"><i class="bi bi-exclamation-circle"></i> Perlu follow up</small>
+                                    </div>
+                                    <div class="icon-box bg-warning bg-opacity-10 text-warning">
+                                        <i class="bi bi-funnel"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-4">
+                        <div class="col-lg-8">
+                            <div class="card border-0 shadow-sm h-100">
+                                <div class="card-header bg-white py-3 border-0">
+                                    <h6 class="mb-0 fw-bold"><i class="bi bi-clock-history me-2"></i>Deadline Terdekat</h6>
+                                </div>
+                                <div class="card-body p-0">
+                                    <table id="tableDashboard" class="table table-hover mb-0 align-middle w-100 nowrap">
+                                        <thead class="bg-light">
+                                            <tr>
+                                                <th class="ps-4">Nama Proyek</th>
+                                                <th>Klien</th>
+                                                <th>Progress</th>
+                                                <th>Due Date</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="ps-4 fw-medium">E-Commerce Web App</td>
+                                                <td>PT Teknologi Maju</td>
+                                                <td>
+                                                    <div class="progress" style="height: 5px; width: 100px;">
+                                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 75%"></div>
+                                                    </div>
+                                                    <small class="text-muted" style="font-size: 10px;">75%</small>
+                                                </td>
+                                                <td class="text-danger fw-bold">31 Des 2023</td>
+                                                <td><span class="badge badge-soft-primary">Active</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="ps-4 fw-medium">Inventory System</td>
+                                                <td>CV Berkah Abadi</td>
+                                                <td>
+                                                    <div class="progress" style="height: 5px; width: 100px;">
+                                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 30%"></div>
+                                                    </div>
+                                                    <small class="text-muted" style="font-size: 10px;">30%</small>
+                                                </td>
+                                                <td class="text-danger fw-bold">20 Nov 2023</td>
+                                                <td><span class="badge badge-soft-warning">In Progress</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card border-0 shadow-sm h-100">
+                                <div class="card-header bg-white py-3 border-0">
+                                    <h6 class="mb-0 fw-bold"><i class="bi bi-exclamation-triangle me-2"></i>Invoice Unpaid</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center border-bottom pb-3 mb-3">
+                                        <div class="flex-shrink-0">
+                                            <div class="bg-danger bg-opacity-10 text-danger p-2 rounded">
+                                                <i class="bi bi-receipt"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 ms-3">
+                                            <h6 class="mb-0 fw-bold">PT Teknologi Maju</h6>
+                                            <small class="text-muted">#INV-002</small>
+                                        </div>
+                                        <div class="text-end">
+                                            <div class="fw-bold">Rp 25jt</div>
+                                            <span class="badge badge-soft-danger" style="font-size: 10px;">Overdue</span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0">
+                                            <div class="bg-warning bg-opacity-10 text-warning p-2 rounded">
+                                                <i class="bi bi-receipt"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 ms-3">
+                                            <h6 class="mb-0 fw-bold">CV Berkah Abadi</h6>
+                                            <small class="text-muted">#INV-003</small>
+                                        </div>
+                                        <div class="text-end">
+                                            <div class="fw-bold">Rp 10jt</div>
+                                            <span class="badge badge-soft-warning" style="font-size: 10px;">Pending</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. CLIENTS & CRM SECTION -->
+                <div id="clients" class="content-section">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h4 class="fw-bold text-dark">Daftar Klien & Prospek</h4>
+                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addProspectModal"><i class="bi bi-plus-lg"></i> Tambah Prospek</button>
+                    </div>
+
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-3">
+                            <table id="tableClients" class="table table-hover align-middle mb-0 w-100 nowrap">
+                                <thead class="bg-light text-secondary">
+                                    <tr>
+                                        <th class="py-3">Nama Klien / Perusahaan</th>
+                                        <th>Kontak</th>
+                                        <th>Potensi Proyek</th>
+                                        <th>Status (Pipeline)</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="fw-bold">StartUp Keren</div>
+                                            <small class="text-muted">Baru masuk 2 hari lalu</small>
+                                        </td>
+                                        <td>
+                                            <div>Andi Wijaya</div>
+                                            <small class="text-muted">0813-3344-4455</small>
+                                        </td>
+                                        <td>Mobile App MVP</td>
+                                        <td><span class="badge badge-soft-primary">Baru / Leads</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-success" title="Kirim Penawaran" data-bs-toggle="modal" data-bs-target="#sendProposalModal"><i class="bi bi-file-earmark-text"></i></button>
+                                            <button class="btn btn-sm btn-outline-primary" title="Follow Up WA"><i class="bi bi-whatsapp"></i></button>
+                                            <button class="btn btn-sm btn-outline-secondary" title="Edit"><i class="bi bi-pencil"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="fw-bold">CV Berkah Abadi</div>
+                                            <small class="text-muted">Klien Lama</small>
+                                        </td>
+                                        <td>
+                                            <div>Siti Aminah</div>
+                                            <small class="text-muted">0819-8765-4321</small>
+                                        </td>
+                                        <td>Inventory System v2</td>
+                                        <td><span class="badge badge-soft-warning">Negosiasi Harga</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-success" title="Kirim Penawaran" data-bs-toggle="modal" data-bs-target="#sendProposalModal"><i class="bi bi-file-earmark-text"></i></button>
+                                            <button class="btn btn-sm btn-outline-primary"><i class="bi bi-whatsapp"></i></button>
+                                            <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="fw-bold">PT Teknologi Maju</div>
+                                            <small class="text-muted">Enterprise</small>
+                                        </td>
+                                        <td>
+                                            <div>Budi Santoso</div>
+                                            <small class="text-muted">0812-3456-7890</small>
+                                        </td>
+                                        <td>Maintenance Contract</td>
+                                        <td><span class="badge badge-soft-success">Deal / Active</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-success" title="Lihat Penawaran" data-bs-toggle="modal" data-bs-target="#sendProposalModal"><i class="bi bi-file-earmark-text"></i></button>
+                                            <button class="btn btn-sm btn-outline-primary"><i class="bi bi-whatsapp"></i></button>
+                                            <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="fw-bold text-muted">Toko Maju Mundur</div>
+                                            <small class="text-muted">Prospek Bulan Lalu</small>
+                                        </td>
+                                        <td>
+                                            <div class="text-muted">Iwan Fals</div>
+                                            <small class="text-muted">0811-2233-4455</small>
+                                        </td>
+                                        <td class="text-muted">POS System</td>
+                                        <td><span class="badge badge-soft-danger">Lost / Batal</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-secondary" title="Arsipkan"><i class="bi bi-archive"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2b. PROJECT LIST MODULE -->
+                <div id="projectList" class="content-section">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h4 class="fw-bold text-dark">Data & Daftar Proyek</h4>
+                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addProjectModal"><i class="bi bi-plus-lg"></i> Buat Proyek Baru</button>
+                    </div>
+
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-3">
+                            <table id="tableProjects" class="table table-hover align-middle mb-0 w-100 nowrap">
+                                <thead class="bg-light text-secondary">
+                                    <tr>
+                                        <th class="py-3">Nama Proyek</th>
+                                        <th>Klien</th>
+                                        <th>Nilai Proyek</th>
+                                        <th>Timeline</th>
+                                        <th>Status</th>
+                                        <th>Progress</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="fw-bold">E-Commerce Web App</div>
+                                            <small class="text-muted">Platform Belanja Online</small>
+                                        </td>
+                                        <td>PT Teknologi Maju</td>
+                                        <td>Rp 50.000.000</td>
+                                        <td>
+                                            <small class="d-block text-muted">Mulai: 01 Okt 2023</small>
+                                            <small class="d-block text-danger">Due: 31 Des 2023</small>
+                                        </td>
+                                        <td><span class="badge badge-soft-primary">Active</span></td>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <div class="progress flex-grow-1" style="height: 6px; width: 80px;">
+                                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 75%"></div>
+                                                </div>
+                                                <span class="small text-muted">75%</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i></button>
+                                            <button class="btn btn-sm btn-outline-info" title="Lihat Tasks"><i class="bi bi-kanban"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="fw-bold">Inventory System</div>
+                                            <small class="text-muted">Aplikasi Gudang & Stok</small>
+                                        </td>
+                                        <td>CV Berkah Abadi</td>
+                                        <td>Rp 20.000.000</td>
+                                        <td>
+                                            <small class="d-block text-muted">Mulai: 15 Okt 2023</small>
+                                            <small class="d-block text-danger">Due: 20 Nov 2023</small>
+                                        </td>
+                                        <td><span class="badge badge-soft-warning">In Progress</span></td>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <div class="progress flex-grow-1" style="height: 6px; width: 80px;">
+                                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 30%"></div>
+                                                </div>
+                                                <span class="small text-muted">30%</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i></button>
+                                            <button class="btn btn-sm btn-outline-info" title="Lihat Tasks"><i class="bi bi-kanban"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="fw-bold">Company Profile Web</div>
+                                            <small class="text-muted">Website Profil Sederhana</small>
+                                        </td>
+                                        <td>Toko Sinar Jaya</td>
+                                        <td>Rp 5.000.000</td>
+                                        <td>
+                                            <small class="d-block text-muted">Mulai: 01 Sep 2023</small>
+                                            <small class="d-block text-success">Selesai: 30 Sep 2023</small>
+                                        </td>
+                                        <td><span class="badge badge-soft-success">Completed</span></td>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <div class="progress flex-grow-1" style="height: 6px; width: 80px;">
+                                                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%"></div>
+                                                </div>
+                                                <span class="small text-muted">100%</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-eye"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. INVOICING SECTION -->
+                <div id="invoicing" class="content-section">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h4 class="fw-bold text-dark">Invoice & Keuangan</h4>
+                        <!-- Updated Button with Modal Trigger -->
+                        <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addInvoiceModal"><i class="bi bi-plus-lg"></i> Buat Invoice</button>
+                    </div>
+
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-body">
+                            <div class="row text-center">
+                                <div class="col-md-4 border-end">
+                                    <h6 class="text-muted text-uppercase small fw-bold">Total Tagihan</h6>
+                                    <h3 class="fw-bold text-dark">Rp 60.000.000</h3>
+                                </div>
+                                <div class="col-md-4 border-end">
+                                    <h6 class="text-muted text-uppercase small fw-bold">Sudah Dibayar</h6>
+                                    <h3 class="fw-bold text-success">Rp 25.000.000</h3>
+                                </div>
+                                <div class="col-md-4">
+                                    <h6 class="text-muted text-uppercase small fw-bold">Belum Dibayar</h6>
+                                    <h3 class="fw-bold text-danger">Rp 35.000.000</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-3">
+                            <table id="tableInvoices" class="table table-hover align-middle mb-0 w-100 nowrap">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th>No. Invoice</th>
+                                        <th>Klien</th>
+                                        <th>Tanggal</th>
+                                        <th>Jumlah</th>
+                                        <th>Status</th>
+                                        <th class="text-end">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="fw-mono text-primary">#INV-001</td>
+                                        <td>PT Teknologi Maju</td>
+                                        <td>01 Okt 2023</td>
+                                        <td class="fw-bold">Rp 25.000.000</td>
+                                        <td><span class="badge badge-soft-success">Paid</span></td>
+                                        <td class="text-end">
+                                            <button class="btn btn-sm btn-light text-danger"><i class="bi bi-file-pdf"></i> PDF</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-mono text-primary">#INV-002</td>
+                                        <td>PT Teknologi Maju</td>
+                                        <td>01 Nov 2023</td>
+                                        <td class="fw-bold">Rp 25.000.000</td>
+                                        <td><span class="badge badge-soft-danger">Unpaid</span></td>
+                                        <td class="text-end">
+                                            <button class="btn btn-sm btn-light text-danger"><i class="bi bi-file-pdf"></i> PDF</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                 <!-- 4. EMPLOYEES SECTION -->
+                 <div id="employees" class="content-section">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h4 class="fw-bold text-dark">Data Karyawan</h4>
+                        <button class="btn btn-dark btn-sm"><i class="bi bi-person-plus"></i> Tambah Karyawan</button>
+                    </div>
+
+                    <div class="row g-4">
+                        <!-- Employee Card 1 -->
+                        <div class="col-md-4">
+                            <div class="card border-0 shadow-sm h-100">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="rounded-circle bg-light d-flex align-items-center justify-content-center fw-bold text-secondary" style="width: 50px; height: 50px; font-size: 1.2rem;">
+                                            R
+                                        </div>
+                                        <div class="ms-3">
+                                            <h6 class="fw-bold mb-0">Rizky Developer</h6>
+                                            <small class="text-muted">Fullstack Engineer</small>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <small class="text-muted d-block mb-1 fw-bold" style="font-size: 0.7rem;">SKILLS</small>
+                                        <span class="badge bg-light text-dark border">CI4</span>
+                                        <span class="badge bg-light text-dark border">Laravel</span>
+                                        <span class="badge bg-light text-dark border">VueJS</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mt-4">
+                                        <span class="badge badge-soft-success">Active</span>
+                                        <a href="#" class="text-decoration-none small fw-bold">Lihat Profil</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                         <!-- Employee Card 2 -->
+                         <div class="col-md-4">
+                            <div class="card border-0 shadow-sm h-100">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="rounded-circle bg-light d-flex align-items-center justify-content-center fw-bold text-secondary" style="width: 50px; height: 50px; font-size: 1.2rem;">
+                                            D
+                                        </div>
+                                        <div class="ms-3">
+                                            <h6 class="fw-bold mb-0">Dewi Designer</h6>
+                                            <small class="text-muted">UI/UX Designer</small>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <small class="text-muted d-block mb-1 fw-bold" style="font-size: 0.7rem;">SKILLS</small>
+                                        <span class="badge bg-light text-dark border">Figma</span>
+                                        <span class="badge bg-light text-dark border">Adobe XD</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mt-4">
+                                        <span class="badge badge-soft-success">Active</span>
+                                        <a href="#" class="text-decoration-none small fw-bold">Lihat Profil</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+
+                 <!-- 5. PROJECTS SECTION (KANBAN BOARD) -->
+                 <div id="projects" class="content-section">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <h4 class="fw-bold text-dark">Manajemen Proyek</h4>
+                            <p class="text-muted small mb-0">Pantau progress pengerjaan software (Kanban View)</p>
+                        </div>
+                        <!-- Button with Modal Trigger -->
+                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addTaskModal"><i class="bi bi-plus-lg"></i> Buat Task Baru</button>
+                    </div>
+
+                    <!-- Project Filter -->
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <select class="form-select form-select-sm shadow-sm border-0">
+                                <option selected>Semua Proyek</option>
+                                <option value="1">E-Commerce Web App</option>
+                                <option value="2">Inventory System</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Kanban Board -->
+                    <div class="row g-4">
+                        <!-- Column: To Do (Akan Dikerjakan) -->
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-light border-0 h-100">
+                                <div class="card-header bg-secondary text-white fw-bold py-2 text-uppercase small d-flex justify-content-between align-items-center">
+                                    <span><i class="bi bi-circle me-1"></i> To Do</span>
+                                    <span class="badge bg-white text-secondary rounded-pill">2</span>
+                                </div>
+                                <div class="card-body p-3 overflow-auto" style="max-height: 600px;">
+                                    <!-- Task Card -->
+                                    <div class="card border-0 shadow-sm mb-3">
+                                        <div class="card-body p-3">
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span class="badge badge-soft-info border" style="font-size: 10px;">E-Commerce</span>
+                                                <i class="bi bi-three-dots text-muted" style="cursor: pointer;"></i>
+                                            </div>
+                                            <h6 class="fw-bold mb-2 text-dark">Setup Database Schema</h6>
+                                            <p class="text-muted small mb-3">Merancang ERD dan migrasi database awal.</p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex -space-x-2">
+                                                    <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center small border border-white" style="width: 24px; height: 24px; font-size: 10px;">R</div>
+                                                </div>
+                                                <small class="text-danger fw-bold" style="font-size: 11px;"><i class="bi bi-clock"></i> 2 Hari</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Task Card -->
+                                    <div class="card border-0 shadow-sm mb-3">
+                                        <div class="card-body p-3">
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span class="badge badge-soft-warning border" style="font-size: 10px;">Inventory</span>
+                                                <i class="bi bi-three-dots text-muted" style="cursor: pointer;"></i>
+                                            </div>
+                                            <h6 class="fw-bold mb-2 text-dark">UI Design Dashboard</h6>
+                                            <p class="text-muted small mb-3">Mockup halaman utama admin panel.</p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="rounded-circle bg-success text-white d-flex align-items-center justify-content-center small border border-white" style="width: 24px; height: 24px; font-size: 10px;">D</div>
+                                                <small class="text-muted" style="font-size: 11px;"><i class="bi bi-calendar"></i> 5 Nov</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Column: In Progress (Sedang Dikerjakan) -->
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-light border-0 h-100">
+                                <div class="card-header bg-primary text-white fw-bold py-2 text-uppercase small d-flex justify-content-between align-items-center">
+                                    <span><i class="bi bi-play-circle me-1"></i> In Progress</span>
+                                    <span class="badge bg-white text-primary rounded-pill">1</span>
+                                </div>
+                                <div class="card-body p-3 overflow-auto" style="max-height: 600px;">
+                                    <!-- Task Card -->
+                                    <div class="card border-0 shadow-sm mb-3 border-start border-4 border-primary">
+                                        <div class="card-body p-3">
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span class="badge badge-soft-info border" style="font-size: 10px;">E-Commerce</span>
+                                                <i class="bi bi-three-dots text-muted" style="cursor: pointer;"></i>
+                                            </div>
+                                            <h6 class="fw-bold mb-2 text-dark">API Authentication</h6>
+                                            <p class="text-muted small mb-3">Implementasi JWT Login & Register.</p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center small border border-white" style="width: 24px; height: 24px; font-size: 10px;">R</div>
+                                                <small class="text-warning fw-bold" style="font-size: 11px;"><i class="bi bi-clock-history"></i> Besok</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Column: Testing / QA (NEW COLUMN) -->
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-light border-0 h-100">
+                                <div class="card-header bg-warning text-dark fw-bold py-2 text-uppercase small d-flex justify-content-between align-items-center">
+                                    <span><i class="bi bi-bug me-1"></i> Testing / QA</span>
+                                    <span class="badge bg-white text-warning border border-warning rounded-pill">1</span>
+                                </div>
+                                <div class="card-body p-3 overflow-auto" style="max-height: 600px;">
+                                    <!-- Task Card -->
+                                    <div class="card border-0 shadow-sm mb-3">
+                                        <div class="card-body p-3">
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span class="badge badge-soft-warning border" style="font-size: 10px;">Inventory</span>
+                                                <i class="bi bi-three-dots text-muted" style="cursor: pointer;"></i>
+                                            </div>
+                                            <h6 class="fw-bold mb-2 text-dark">Fix Report Bug</h6>
+                                            <p class="text-muted small mb-3">Perbaikan error pada export PDF bulanan.</p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center small border border-white" style="width: 24px; height: 24px; font-size: 10px;">R</div>
+                                                <small class="text-muted fw-bold" style="font-size: 11px;">Testing</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                         <!-- Column: Done (Selesai) -->
+                         <div class="col-xl-3 col-md-6">
+                            <div class="card bg-light border-0 h-100">
+                                <div class="card-header bg-success text-white fw-bold py-2 text-uppercase small d-flex justify-content-between align-items-center">
+                                    <span><i class="bi bi-check-circle me-1"></i> Done</span>
+                                    <span class="badge bg-white text-success rounded-pill">2</span>
+                                </div>
+                                <div class="card-body p-3 overflow-auto" style="max-height: 600px;">
+                                    <!-- Task Card -->
+                                    <div class="card border-0 shadow-sm mb-3 opacity-75">
+                                        <div class="card-body p-3">
+                                             <div class="d-flex justify-content-between mb-2">
+                                                <span class="badge badge-soft-info border" style="font-size: 10px;">E-Commerce</span>
+                                                <i class="bi bi-check-circle-fill text-success"></i>
+                                            </div>
+                                            <h6 class="fw-bold mb-2 text-decoration-line-through text-muted">Setup Repo Git</h6>
+                                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                                <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center small border border-white" style="width: 24px; height: 24px; font-size: 10px;">R</div>
+                                                <small class="text-success fw-bold" style="font-size: 11px;">Selesai</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                     <!-- Task Card -->
+                                     <div class="card border-0 shadow-sm mb-3 opacity-75">
+                                        <div class="card-body p-3">
+                                             <div class="d-flex justify-content-between mb-2">
+                                                <span class="badge badge-soft-warning border" style="font-size: 10px;">Inventory</span>
+                                                <i class="bi bi-check-circle-fill text-success"></i>
+                                            </div>
+                                            <h6 class="fw-bold mb-2 text-decoration-line-through text-muted">Analisis Kebutuhan</h6>
+                                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                                <div class="rounded-circle bg-dark text-white d-flex align-items-center justify-content-center small border border-white" style="width: 24px; height: 24px; font-size: 10px;">A</div>
+                                                <small class="text-success fw-bold" style="font-size: 11px;">Selesai</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+
+            </div>
+
+            <!-- Footer Section (New) -->
+            <footer class="bg-white p-3 border-top text-center">
+                <div class="container-fluid">
+                    <p class="mb-0 text-muted small">&copy; 2023 DevHouse Management System. All rights reserved.</p>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Modal Tambah Prospek (Updated) -->
+    <div class="modal fade" id="addProspectModal" tabindex="-1" aria-labelledby="addProspectModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold" id="addProspectModalLabel">Tambah Prospek Baru</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="clientName" class="form-label">Nama Perusahaan / Klien</label>
+                            <input type="text" class="form-control" id="clientName" placeholder="Contoh: PT Maju Jaya">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="contactPerson" class="form-label">Nama Kontak</label>
+                                <input type="text" class="form-control" id="contactPerson" placeholder="Bpk. Budi">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="contactPhone" class="form-label">No. HP / WhatsApp</label>
+                                <input type="text" class="form-control" id="contactPhone" placeholder="0812...">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contactEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="contactEmail" placeholder="email@perusahaan.com">
+                        </div>
+                        <div class="mb-3">
+                            <label for="projectPotential" class="form-label">Potensi Proyek</label>
+                            <input type="text" class="form-control" id="projectPotential" placeholder="Contoh: Web Company Profile">
+                        </div>
+                        <div class="mb-3">
+                            <label for="prospectStatus" class="form-label">Status Awal</label>
+                            <select class="form-select" id="prospectStatus">
+                                <option value="Baru" selected>Baru / Leads</option>
+                                <option value="Negosiasi">Negosiasi</option>
+                                <option value="Deal">Deal</option>
+                                <option value="Lost">Lost / Batal</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="prospectNotes" class="form-label">Catatan Tambahan</label>
+                            <textarea class="form-control" id="prospectNotes" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary">Simpan Prospek</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Tambah Proyek Baru (New) -->
+    <div class="modal fade" id="addProjectModal" tabindex="-1" aria-labelledby="addProjectModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold" id="addProjectModalLabel">Buat Proyek Baru</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="projName" class="form-label">Nama Proyek</label>
+                            <input type="text" class="form-control" id="projName" placeholder="Contoh: E-Commerce Web App">
+                        </div>
+                        <div class="mb-3">
+                            <label for="projClient" class="form-label">Klien</label>
+                            <select class="form-select" id="projClient">
+                                <option selected disabled>Pilih Klien...</option>
+                                <option value="1">PT Teknologi Maju</option>
+                                <option value="2">CV Berkah Abadi</option>
+                                <option value="3">StartUp Keren</option>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="projValue" class="form-label">Nilai Proyek (IDR)</label>
+                                <input type="number" class="form-control" id="projValue" placeholder="50000000">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="projStatus" class="form-label">Status</label>
+                                <select class="form-select" id="projStatus">
+                                    <option value="Active">Active</option>
+                                    <option value="Hold">On Hold</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="projStart" class="form-label">Tanggal Mulai</label>
+                                <input type="date" class="form-control" id="projStart">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="projEnd" class="form-label">Estimasi Selesai</label>
+                                <input type="date" class="form-control" id="projEnd">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="projDesc" class="form-label">Deskripsi Singkat</label>
+                            <textarea class="form-control" id="projDesc" rows="3" placeholder="Lingkup kerja, fitur utama, dll..."></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary">Simpan Proyek</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Tambah Task Baru (New) -->
+    <div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold" id="addTaskModalLabel">Buat Task Baru</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="taskTitle" class="form-label">Judul Task</label>
+                            <input type="text" class="form-control" id="taskTitle" placeholder="Contoh: Desain Database User">
+                        </div>
+                        <div class="mb-3">
+                            <label for="taskProject" class="form-label">Proyek Terkait</label>
+                            <select class="form-select" id="taskProject">
+                                <option selected disabled>Pilih Proyek...</option>
+                                <option value="1">E-Commerce Web App</option>
+                                <option value="2">Inventory System</option>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="taskAssignee" class="form-label">Ditugaskan Ke</label>
+                                <select class="form-select" id="taskAssignee">
+                                    <option selected disabled>Pilih Tim...</option>
+                                    <option value="R">Rizky Developer</option>
+                                    <option value="D">Dewi Designer</option>
+                                    <option value="A">Agus PM</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="taskDeadline" class="form-label">Tenggat Waktu</label>
+                                <input type="date" class="form-control" id="taskDeadline">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="taskStatus" class="form-label">Status Awal</label>
+                            <select class="form-select" id="taskStatus">
+                                <option value="todo" selected>To Do (Akan Dikerjakan)</option>
+                                <option value="progress">In Progress</option>
+                                <option value="testing">Testing / QA</option>
+                                <option value="done">Done</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="taskDesc" class="form-label">Deskripsi & Catatan</label>
+                            <textarea class="form-control" id="taskDesc" rows="3" placeholder="Detail pekerjaan..."></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary">Simpan Task</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Buat Invoice (New) -->
+    <div class="modal fade" id="addInvoiceModal" tabindex="-1" aria-labelledby="addInvoiceModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold" id="addInvoiceModalLabel">Buat Invoice Baru</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="invNumber" class="form-label">Nomor Invoice</label>
+                                <input type="text" class="form-control" id="invNumber" value="INV-2023-004" readonly>
+                                <small class="text-muted">Otomatis di-generate sistem</small>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="invClient" class="form-label">Pilih Klien</label>
+                                <select class="form-select" id="invClient">
+                                    <option selected disabled>Pilih Klien...</option>
+                                    <option value="1">PT Teknologi Maju</option>
+                                    <option value="2">CV Berkah Abadi</option>
+                                    <option value="3">StartUp Keren</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="invDate" class="form-label">Tanggal Invoice</label>
+                                <input type="date" class="form-control" id="invDate">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="invDue" class="form-label">Jatuh Tempo</label>
+                                <input type="date" class="form-control" id="invDue">
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="invDesc" class="form-label">Deskripsi Tagihan</label>
+                            <textarea class="form-control" id="invDesc" rows="3" placeholder="Rincian pembayaran (Termin 1, Pelunasan, dll)..."></textarea>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="invAmount" class="form-label">Total Nominal (Rp)</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">Rp</span>
+                                    <input type="number" class="form-control" id="invAmount" placeholder="0">
+                                </div>
+                            </div>
+                             <div class="col-md-6 mb-3">
+                                <label for="invStatus" class="form-label">Status Awal</label>
+                                <select class="form-select" id="invStatus">
+                                    <option value="unpaid" selected>Unpaid (Belum Lunas)</option>
+                                    <option value="paid">Paid (Lunas)</option>
+                                    <option value="pending">Pending</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-success">Simpan & Kirim Invoice</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Kirim Penawaran (New Module for Quotation) -->
+    <div class="modal fade" id="sendProposalModal" tabindex="-1" aria-labelledby="sendProposalModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold" id="sendProposalModalLabel"><i class="bi bi-file-earmark-text me-2"></i>Buat & Kirim Penawaran</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="alert alert-info py-2 small">
+                            <i class="bi bi-info-circle me-1"></i> Penawaran akan dikirim ke email klien yang terdaftar.
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="propClient" class="form-label">Tujuan Klien</label>
+                                <input type="text" class="form-control" id="propClient" value="StartUp Keren (Andi Wijaya)" readonly>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="propDate" class="form-label">Tanggal Penawaran</label>
+                                <input type="date" class="form-control" id="propDate">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="propTitle" class="form-label">Judul Penawaran / Proyek</label>
+                            <input type="text" class="form-control" id="propTitle" placeholder="Misal: Penawaran Pembuatan Aplikasi Mobile MVP">
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="propValue" class="form-label">Estimasi Nilai (Rp)</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">Rp</span>
+                                    <input type="number" class="form-control" id="propValue" placeholder="0">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="propFile" class="form-label">Upload Dokumen Proposal (PDF)</label>
+                                <input type="file" class="form-control" id="propFile" accept=".pdf">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="propLetter" class="form-label">Surat Pengantar (Email Body)</label>
+                            <textarea class="form-control" id="propLetter" rows="4">Halo Pak Andi,
+
+Berikut kami lampirkan penawaran harga dan detail teknis untuk pengembangan aplikasi mobile yang kita diskusikan kemarin.
+
+Mohon dipelajari, terima kasih.</textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Simpan Draft</button>
+                    <button type="button" class="btn btn-primary"><i class="bi bi-send-fill me-1"></i> Kirim Penawaran</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <!-- DataTables Responsive JS (NEW) -->
+    <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap5.min.js"></script>
+
+    <!-- Custom JS for interactions -->
+    <script>
+        // Sidebar Toggle with Responsive Logic
+        document.getElementById('sidebarCollapse').addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        });
+
+        // Close sidebar when clicking overlay (mobile)
+        document.getElementById('overlay').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.remove('active');
+            this.classList.remove('active');
+        });
+
+        // Variable global untuk menyimpan instance DataTable
+        let tableClients, tableInvoices, tableDashboard, tableProjects;
+
+        // Initialize DataTables with Responsive Extension
+        $(document).ready(function() {
+            // Config for regular data tables (CRM, Invoices)
+            const commonConfig = {
+                responsive: true,
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/id.json'
+                },
+                columnDefs: [
+                    { orderable: false, targets: -1 }, // Disable sorting on 'Aksi' column
+                    { responsivePriority: 1, targets: 0 }, // Nama Klien priority
+                    { responsivePriority: 2, targets: -1 } // Aksi button priority
+                ]
+            };
+
+            // Simpan instance ke variable
+            tableClients = $('#tableClients').DataTable(commonConfig);
+            tableInvoices = $('#tableInvoices').DataTable(commonConfig);
+            tableProjects = $('#tableProjects').DataTable(commonConfig);
+
+            // Special Config for Dashboard Table (Widget style)
+            tableDashboard = $('#tableDashboard').DataTable({
+                responsive: true,
+                paging: false,      // Disable pagination
+                searching: false,   // Disable search box
+                info: false,        // Disable "Showing 1 to x" info
+                lengthChange: false,// Disable "Show x entries" dropdown
+                ordering: false,    // Disable column sorting (keep default order)
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/id.json'
+                }
+            });
+        });
+
+        // Simple Tab Switching Logic (Simulating Routing)
+        function showSection(sectionId, element) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active-section');
+            });
+
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active-section');
+
+            // Update active link styling
+            const links = document.querySelectorAll('.components li a');
+            links.forEach(link => {
+                link.classList.remove('active-link');
+            });
+            element.classList.add('active-link');
+
+            // Update Page Title
+            let title = "";
+            switch(sectionId) {
+                case 'dashboard': title = "Dashboard Overview"; break;
+                case 'clients': title = "CRM & Daftar Klien"; break;
+                case 'projectList': title = "Daftar Proyek Aktif"; break;
+                case 'projects': title = "Task Board (Kanban)"; break;
+                case 'invoicing': title = "Data Keuangan & Invoice"; break;
+                case 'employees': title = "Manajemen Karyawan"; break;
+            }
+            document.getElementById('pageTitle').innerText = title;
+
+            // Close sidebar on mobile after clicking a link
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('active');
+                document.getElementById('overlay').classList.remove('active');
+            }
+
+            // PERBAIKAN: Hitung ulang kolom DataTables saat tab dibuka
+            // setTimeout memberi waktu agar animasi CSS (fadeIn) berjalan sedikit agar container punya lebar
+            if (sectionId === 'clients' && tableClients) {
+                setTimeout(() => { tableClients.columns.adjust().responsive.recalc(); }, 200);
+            }
+            if (sectionId === 'projectList' && tableProjects) {
+                setTimeout(() => { tableProjects.columns.adjust().responsive.recalc(); }, 200);
+            }
+            if (sectionId === 'invoicing' && tableInvoices) {
+                setTimeout(() => { tableInvoices.columns.adjust().responsive.recalc(); }, 200);
+            }
+            if (sectionId === 'dashboard' && tableDashboard) {
+                setTimeout(() => { tableDashboard.columns.adjust().responsive.recalc(); }, 200);
+            }
+        }
+    </script>
+</body>
+</html>
