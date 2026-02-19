@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kalkulator Win Rate - SkyTopup</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { sans: ["Poppins", "sans-serif"] },
+            colors: {
+              dark: { 900: "#0f172a", 800: "#1e293b", 700: "#334155" },
+              sky: { 400: "#38bdf8", 500: "#0ea5e9", 600: "#0284c7" },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .glass {
+        background: rgba(30, 41, 59, 0.7);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      /* Hide number input arrows */
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-dark-900 text-white font-sans antialiased flex flex-col min-h-screen"
+  >
+    <!-- Background Glow -->
+    <div
+      class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none"
+    >
+      <div
+        class="absolute top-[10%] left-[20%] w-[30%] h-[30%] bg-sky-600/10 rounded-full blur-[100px]"
+      ></div>
+      <div
+        class="absolute bottom-[10%] right-[20%] w-[40%] h-[40%] bg-purple-600/10 rounded-full blur-[120px]"
+      ></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 top-0 glass border-b border-white/5">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <!-- Logo -->
+          <a
+            href="/"
+            class="flex items-center gap-2 hover:opacity-80 transition"
+          >
+            <div
+              class="w-8 h-8 bg-gradient-to-br from-sky-400 to-blue-600 rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(14,165,233,0.5)]"
+            >
+              <i class="fa-solid fa-bolt text-white text-sm"></i>
+            </div>
+            <span class="font-bold tracking-wide"
+              >Sky<span class="text-sky-400">Topup</span></span
+            >
+          </a>
+
+          <div class="hidden md:flex space-x-6 text-sm font-medium">
+            <a href="/" class="text-gray-400 hover:text-white transition"
+              >Beranda</a
+            >
+            <a href="#" class="text-sky-400">Kalkulator WR</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main
+      class="flex-grow pt-28 pb-12 px-4 sm:px-6 lg:px-8 w-full max-w-4xl mx-auto"
+    >
+      <div class="text-center mb-10">
+        <h1 class="text-3xl font-bold mb-3">Kalkulator Win Rate</h1>
+        <p class="text-gray-400">
+          Hitung berapa kemenangan beruntun (win streak) yang kamu butuhkan
+          untuk mencapai WR impianmu.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+        <!-- Calculator Form -->
+        <div
+          class="bg-dark-800 rounded-2xl p-8 border border-white/5 shadow-2xl relative overflow-hidden group"
+        >
+          <div
+            class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-sky-400 to-blue-600"
+          ></div>
+
+          <form id="wrForm" class="space-y-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-300 mb-2"
+                >Total Pertandingan (Matches)</label
+              >
+              <div class="relative">
+                <input
+                  type="number"
+                  id="tMatch"
+                  class="w-full bg-dark-900 border border-dark-700 rounded-xl px-4 py-3 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition placeholder-gray-600 text-white pl-11"
+                  placeholder="Contoh: 350"
+                />
+                <div
+                  class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"
+                >
+                  <i class="fa-solid fa-gamepad text-gray-500"></i>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-300 mb-2"
+                >Total Win Rate Saat Ini (%)</label
+              >
+              <div class="relative">
+                <input
+                  type="number"
+                  id="tWr"
+                  step="0.01"
+                  class="w-full bg-dark-900 border border-dark-700 rounded-xl px-4 py-3 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition placeholder-gray-600 text-white pl-11"
+                  placeholder="Contoh: 51.5"
+                />
+                <div
+                  class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"
+                >
+                  <i class="fa-solid fa-percent text-gray-500"></i>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-300 mb-2"
+                >Target Win Rate (%)</label
+              >
+              <div class="relative">
+                <input
+                  type="number"
+                  id="targetWr"
+                  step="0.01"
+                  class="w-full bg-dark-900 border border-dark-700 rounded-xl px-4 py-3 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition placeholder-gray-600 text-white pl-11"
+                  placeholder="Contoh: 60"
+                />
+                <div
+                  class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"
+                >
+                  <i class="fa-solid fa-crosshairs text-gray-500"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-2 flex gap-3">
+              <button
+                type="button"
+                onclick="calculateWR()"
+                class="flex-1 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-bold py-3 rounded-xl shadow-lg transition transform hover:-translate-y-1"
+              >
+                Hitung Hasil
+              </button>
+              <button
+                type="button"
+                onclick="resetForm()"
+                class="px-6 bg-dark-700 hover:bg-dark-600 text-gray-300 font-bold py-3 rounded-xl transition"
+              >
+                <i class="fa-solid fa-rotate-right"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Result Section -->
+        <div class="space-y-6">
+          <!-- Result Card (Hidden Initially) -->
+          <div
+            id="resultCard"
+            class="hidden bg-dark-800 rounded-2xl p-8 border border-white/5 shadow-2xl text-center relative overflow-hidden animate-fade-in-up"
+          >
+            <div
+              class="absolute -top-10 -right-10 w-32 h-32 bg-sky-500/20 rounded-full blur-2xl"
+            ></div>
+
+            <h3 class="text-gray-400 font-medium mb-4">
+              Kamu memerlukan sekitar
+            </h3>
+            <div
+              class="text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-500 mb-2"
+              id="resultText"
+            >
+              0
+            </div>
+            <h3 class="text-xl font-bold text-white mb-6">
+              Win Streak (Menang Beruntun)
+            </h3>
+
+            <div
+              class="bg-dark-900/50 rounded-xl p-4 border border-white/5 text-sm text-gray-400 leading-relaxed"
+            >
+              <p>Tanpa kekalahan sekalipun. Semangat push rank-nya!</p>
+            </div>
+
+            <div class="mt-6 pt-6 border-t border-white/5">
+              <p class="text-sm text-gray-500 mb-3">
+                Butuh Diamond buat push rank?
+              </p>
+              <a
+                href="/"
+                class="inline-flex items-center text-sky-400 hover:text-sky-300 font-semibold transition"
+              >
+                Top Up Sekarang <i class="fa-solid fa-arrow-right ml-2"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Info Box -->
+          <div class="bg-blue-500/5 border border-blue-500/10 rounded-2xl p-6">
+            <div class="flex items-start gap-4">
+              <div class="bg-blue-500/20 p-2 rounded-lg text-blue-400">
+                <i class="fa-solid fa-circle-info text-xl"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-blue-400 mb-1">Cara Menggunakan</h4>
+                <p class="text-sm text-gray-400 leading-relaxed">
+                  Masukkan total pertandingan dan win rate kamu saat ini, lalu
+                  masukkan target win rate yang diinginkan. Sistem akan
+                  menghitung jumlah kemenangan yang dibutuhkan.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/5 bg-dark-900 py-8 mt-auto">
+      <div class="max-w-7xl mx-auto px-4 text-center">
+        <p class="text-gray-500 text-sm">
+          &copy; 2026 SkyTopup. All rights reserved.
+        </p>
+      </div>
+    </footer>
+
+    <!-- JavaScript Calculation Logic -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              dark: { 900: "#0f172a", 800: "#1e293b", 700: "#334155" },
+              sky: { 400: "#38bdf8", 500: "#0ea5e9" },
+            },
+            animation: {
+              "fade-in-up": "fadeInUp 0.5s ease-out forwards",
+            },
+            keyframes: {
+              fadeInUp: {
+                "0%": { opacity: "0", transform: "translateY(20px)" },
+                "100%": { opacity: "1", transform: "translateY(0)" },
+              },
+            },
+          },
+        },
+      };
+
+      function calculateWR() {
+        // Ambil nilai input
+        const tMatch = parseFloat(document.getElementById("tMatch").value);
+        const tWr = parseFloat(document.getElementById("tWr").value);
+        const targetWr = parseFloat(document.getElementById("targetWr").value);
+
+        // Validasi Input
+        if (isNaN(tMatch) || isNaN(tWr) || isNaN(targetWr)) {
+          alert("Mohon isi semua kolom dengan angka yang valid.");
+          return;
+        }
+
+        if (tWr > 100 || targetWr > 100 || tWr < 0 || targetWr < 0) {
+          alert("Win Rate tidak bisa lebih dari 100% atau kurang dari 0%.");
+          return;
+        }
+
+        if (targetWr <= tWr) {
+          alert("Target Win Rate harus lebih tinggi dari Win Rate saat ini.");
+          return;
+        }
+
+        if (targetWr === 100) {
+          alert(
+            "Mustahil mencapai 100% Win Rate jika kamu sudah pernah kalah.",
+          );
+          return;
+        }
+
+        // Rumus Matematika Kalkulator WR
+        // Rumus: (TotalMatch * (TargetWR - CurrentWR)) / (100 - TargetWR)
+        // Namun agar lebih presisi kita hitung total win dulu
+
+        // Total Menang saat ini
+        const currentWins = tMatch * (tWr / 100);
+
+        // Rumus mencari X (jumlah win streak):
+        // (currentWins + X) / (tMatch + X) = targetWr / 100
+        // 100(currentWins + X) = targetWr(tMatch + X)
+        // 100*currentWins + 100X = targetWr*tMatch + targetWr*X
+        // 100X - targetWr*X = targetWr*tMatch - 100*currentWins
+        // X (100 - targetWr) = targetWr*tMatch - 100*currentWins
+        // X = (targetWr*tMatch - 100*currentWins) / (100 - targetWr)
+
+        const numerator = targetWr * tMatch - 100 * currentWins;
+        const denominator = 100 - targetWr;
+
+        const result = Math.ceil(numerator / denominator);
+
+        // Tampilkan Hasil
+        const resultCard = document.getElementById("resultCard");
+        const resultText = document.getElementById("resultText");
+
+        resultCard.classList.remove("hidden");
+
+        // Animasi angka (Counter effect)
+        let start = 0;
+        const end = result;
+        const duration = 1000;
+        const increment = end > 50 ? Math.ceil(end / 50) : 1;
+
+        const timer = setInterval(() => {
+          start += increment;
+          if (start >= end) {
+            start = end;
+            clearInterval(timer);
+          }
+          resultText.innerText = start;
+        }, 20);
+
+        // Scroll ke hasil di mobile
+        if (window.innerWidth < 768) {
+          resultCard.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      }
+
+      function resetForm() {
+        document.getElementById("wrForm").reset();
+        document.getElementById("resultCard").classList.add("hidden");
+      }
+    </script>
+  </body>
+</html>

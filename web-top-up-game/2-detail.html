@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Top Up Mobile Legends - SkyTopup</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { sans: ["Poppins", "sans-serif"] },
+            colors: {
+              dark: { 900: "#0f172a", 800: "#1e293b", 700: "#334155" },
+              sky: { 400: "#38bdf8", 500: "#0ea5e9", 600: "#0284c7" },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .glass {
+        background: rgba(30, 41, 59, 0.7);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      /* Hide number input arrows */
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      .selected-product {
+        border-color: #0ea5e9;
+        background-color: rgba(14, 165, 233, 0.1);
+      }
+    </style>
+  </head>
+  <body class="bg-dark-900 text-white font-sans antialiased pb-24 md:pb-0">
+    <!-- Background Glow -->
+    <div
+      class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none"
+    >
+      <div
+        class="absolute top-0 left-1/4 w-[30%] h-[30%] bg-sky-600/10 rounded-full blur-[100px]"
+      ></div>
+    </div>
+
+    <!-- Navbar Sederhana -->
+    <nav class="fixed w-full z-50 top-0 glass border-b border-white/5">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <a
+            href="/"
+            class="flex items-center gap-2 hover:opacity-80 transition"
+          >
+            <i class="fa-solid fa-arrow-left text-gray-400"></i>
+            <span class="font-bold tracking-wide"
+              >Sky<span class="text-sky-400">Topup</span></span
+            >
+          </a>
+          <div class="text-sm font-medium text-gray-400">Mobile Legends</div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Kolom Kiri: Info Game (Sticky di Desktop) -->
+        <div class="lg:col-span-1">
+          <div
+            class="bg-dark-800 rounded-2xl p-6 border border-white/5 sticky top-24"
+          >
+            <img
+              src="https://placehold.co/400x400/1e293b/38bdf8?text=Mobile+Legends"
+              alt="MLBB Logo"
+              class="w-32 h-32 rounded-2xl shadow-lg mb-6 mx-auto lg:mx-0"
+            />
+            <h1 class="text-2xl font-bold mb-2">Mobile Legends: Bang Bang</h1>
+            <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+              Top up Diamond Mobile Legends (ML) resmi Moonton. Cukup masukan
+              User ID & Zone ID, pilih nominal, dan lakukan pembayaran. Diamond
+              masuk otomatis hitungan detik!
+            </p>
+
+            <div class="space-y-3 text-sm">
+              <div class="flex items-center gap-3 text-gray-300">
+                <i class="fa-solid fa-check-circle text-sky-500"></i>
+                <span>Proses Instan (1-3 Detik)</span>
+              </div>
+              <div class="flex items-center gap-3 text-gray-300">
+                <i class="fa-solid fa-shield-alt text-sky-500"></i>
+                <span>Jaminan Layanan 24 Jam</span>
+              </div>
+              <div class="flex items-center gap-3 text-gray-300">
+                <i class="fa-brands fa-whatsapp text-sky-500"></i>
+                <span>CS Bantuan Ready</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kolom Kanan: Form Order -->
+        <div class="lg:col-span-2 space-y-6">
+          <!-- STEP 1: Input Data -->
+          <div
+            class="bg-dark-800 rounded-2xl p-6 border border-white/5 relative overflow-hidden group"
+          >
+            <div class="absolute top-0 left-0 w-1 h-full bg-sky-500"></div>
+            <div class="flex items-center gap-3 mb-4">
+              <div
+                class="w-8 h-8 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center font-bold"
+              >
+                1
+              </div>
+              <h2 class="text-lg font-semibold">Masukkan ID Game</h2>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div class="col-span-2 md:col-span-1">
+                <label class="block text-xs text-gray-400 mb-1 ml-1"
+                  >User ID</label
+                >
+                <input
+                  type="number"
+                  class="w-full bg-dark-900 border border-dark-700 rounded-xl px-4 py-3 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition placeholder-gray-600"
+                  placeholder="Contoh: 12345678"
+                />
+              </div>
+              <div class="col-span-2 md:col-span-1">
+                <label class="block text-xs text-gray-400 mb-1 ml-1"
+                  >Zone ID</label
+                >
+                <input
+                  type="number"
+                  class="w-full bg-dark-900 border border-dark-700 rounded-xl px-4 py-3 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition placeholder-gray-600"
+                  placeholder="Contoh: 1234"
+                />
+              </div>
+            </div>
+            <p class="text-xs text-gray-500 mt-2 italic">
+              *Tekan tombol profile di pojok kiri atas layar game untuk melihat
+              ID.
+            </p>
+          </div>
+
+          <!-- STEP 2: Pilih Nominal -->
+          <div
+            class="bg-dark-800 rounded-2xl p-6 border border-white/5 relative overflow-hidden"
+          >
+            <div class="absolute top-0 left-0 w-1 h-full bg-sky-500"></div>
+            <div class="flex items-center gap-3 mb-4">
+              <div
+                class="w-8 h-8 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center font-bold"
+              >
+                2
+              </div>
+              <h2 class="text-lg font-semibold">Pilih Nominal</h2>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+              <!-- Item Card (Active State Example) -->
+              <div
+                onclick="selectProduct(this)"
+                class="cursor-pointer bg-dark-900 border border-dark-700 rounded-xl p-4 hover:border-sky-500/50 transition relative overflow-hidden group"
+              >
+                <div class="flex items-center justify-between mb-2">
+                  <img
+                    src="https://placehold.co/50x50/38bdf8/ffffff?text=DM"
+                    class="w-8 h-8 rounded-full"
+                    alt="Icon"
+                  />
+                  <span
+                    class="text-xs font-bold text-gray-400 group-hover:text-sky-400"
+                    >Mobile Legends</span
+                  >
+                </div>
+                <h3 class="font-bold text-white text-lg">86 Diamonds</h3>
+                <p class="text-sm text-sky-400 mt-1">Rp 19.500</p>
+              </div>
+
+              <!-- Item Card Regular -->
+              <div
+                onclick="selectProduct(this)"
+                class="cursor-pointer bg-dark-900 border border-dark-700 rounded-xl p-4 hover:border-sky-500/50 transition relative overflow-hidden group"
+              >
+                <div class="flex items-center justify-between mb-2">
+                  <img
+                    src="https://placehold.co/50x50/38bdf8/ffffff?text=DM"
+                    class="w-8 h-8 rounded-full"
+                    alt="Icon"
+                  />
+                  <span
+                    class="text-xs font-bold text-gray-400 group-hover:text-sky-400"
+                    >Mobile Legends</span
+                  >
+                </div>
+                <h3 class="font-bold text-white text-lg">172 Diamonds</h3>
+                <p class="text-sm text-sky-400 mt-1">Rp 38.000</p>
+              </div>
+
+              <!-- Item Card Regular -->
+              <div
+                onclick="selectProduct(this)"
+                class="cursor-pointer bg-dark-900 border border-dark-700 rounded-xl p-4 hover:border-sky-500/50 transition relative overflow-hidden group"
+              >
+                <div class="flex items-center justify-between mb-2">
+                  <img
+                    src="https://placehold.co/50x50/38bdf8/ffffff?text=DM"
+                    class="w-8 h-8 rounded-full"
+                    alt="Icon"
+                  />
+                  <span
+                    class="text-xs font-bold text-gray-400 group-hover:text-sky-400"
+                    >Mobile Legends</span
+                  >
+                </div>
+                <h3 class="font-bold text-white text-lg">257 Diamonds</h3>
+                <p class="text-sm text-sky-400 mt-1">Rp 58.000</p>
+              </div>
+
+              <!-- Item Card Regular -->
+              <div
+                onclick="selectProduct(this)"
+                class="cursor-pointer bg-dark-900 border border-dark-700 rounded-xl p-4 hover:border-sky-500/50 transition relative overflow-hidden group"
+              >
+                <div class="flex items-center justify-between mb-2">
+                  <img
+                    src="https://placehold.co/50x50/38bdf8/ffffff?text=DM"
+                    class="w-8 h-8 rounded-full"
+                    alt="Icon"
+                  />
+                  <span
+                    class="text-xs font-bold text-gray-400 group-hover:text-sky-400"
+                    >Mobile Legends</span
+                  >
+                </div>
+                <h3 class="font-bold text-white text-lg">Weekly Pass</h3>
+                <p class="text-sm text-sky-400 mt-1">Rp 27.500</p>
+              </div>
+
+              <!-- Item Card Regular -->
+              <div
+                onclick="selectProduct(this)"
+                class="cursor-pointer bg-dark-900 border border-dark-700 rounded-xl p-4 hover:border-sky-500/50 transition relative overflow-hidden group"
+              >
+                <div class="flex items-center justify-between mb-2">
+                  <img
+                    src="https://placehold.co/50x50/38bdf8/ffffff?text=DM"
+                    class="w-8 h-8 rounded-full"
+                    alt="Icon"
+                  />
+                  <span
+                    class="text-xs font-bold text-gray-400 group-hover:text-sky-400"
+                    >Mobile Legends</span
+                  >
+                </div>
+                <h3 class="font-bold text-white text-lg">706 Diamonds</h3>
+                <p class="text-sm text-sky-400 mt-1">Rp 155.000</p>
+              </div>
+
+              <!-- Item Card Regular -->
+              <div
+                onclick="selectProduct(this)"
+                class="cursor-pointer bg-dark-900 border border-dark-700 rounded-xl p-4 hover:border-sky-500/50 transition relative overflow-hidden group"
+              >
+                <div class="flex items-center justify-between mb-2">
+                  <img
+                    src="https://placehold.co/50x50/38bdf8/ffffff?text=DM"
+                    class="w-8 h-8 rounded-full"
+                    alt="Icon"
+                  />
+                  <span
+                    class="text-xs font-bold text-gray-400 group-hover:text-sky-400"
+                    >Mobile Legends</span
+                  >
+                </div>
+                <h3 class="font-bold text-white text-lg">2195 Diamonds</h3>
+                <p class="text-sm text-sky-400 mt-1">Rp 465.000</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 3: Pilih Pembayaran -->
+          <div
+            class="bg-dark-800 rounded-2xl p-6 border border-white/5 relative overflow-hidden"
+          >
+            <div class="absolute top-0 left-0 w-1 h-full bg-sky-500"></div>
+            <div class="flex items-center gap-3 mb-4">
+              <div
+                class="w-8 h-8 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center font-bold"
+              >
+                3
+              </div>
+              <h2 class="text-lg font-semibold">Pilih Pembayaran</h2>
+            </div>
+
+            <div class="space-y-3">
+              <!-- Accordion Group: E-Wallet -->
+              <div
+                class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-2 mt-4 ml-1"
+              >
+                E-Wallet / QRIS
+              </div>
+
+              <!-- Payment Item -->
+              <div
+                onclick="selectPayment(this)"
+                class="cursor-pointer bg-dark-900 border border-dark-700 rounded-xl p-4 flex items-center justify-between hover:border-sky-500/50 transition group"
+              >
+                <div class="flex items-center gap-4">
+                  <img
+                    src="https://placehold.co/100x40/white/black?text=QRIS"
+                    class="h-8 w-auto rounded"
+                    alt="QRIS"
+                  />
+                  <div>
+                    <div
+                      class="font-semibold text-white group-hover:text-sky-400 transition"
+                    >
+                      QRIS (All Payment)
+                    </div>
+                    <div class="text-xs text-gray-500">Bebas admin</div>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <div class="font-bold text-sky-400 price-display">Rp -</div>
+                </div>
+              </div>
+
+              <!-- Payment Item -->
+              <div
+                onclick="selectPayment(this)"
+                class="cursor-pointer bg-dark-900 border border-dark-700 rounded-xl p-4 flex items-center justify-between hover:border-sky-500/50 transition group"
+              >
+                <div class="flex items-center gap-4">
+                  <img
+                    src="https://placehold.co/100x40/white/blue?text=DANA"
+                    class="h-8 w-auto rounded"
+                    alt="DANA"
+                  />
+                  <div>
+                    <div
+                      class="font-semibold text-white group-hover:text-sky-400 transition"
+                    >
+                      DANA
+                    </div>
+                    <div class="text-xs text-gray-500">Otomatis</div>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <div class="font-bold text-sky-400 price-display">Rp -</div>
+                </div>
+              </div>
+
+              <div
+                class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-2 mt-6 ml-1"
+              >
+                Virtual Account
+              </div>
+
+              <!-- Payment Item -->
+              <div
+                onclick="selectPayment(this)"
+                class="cursor-pointer bg-dark-900 border border-dark-700 rounded-xl p-4 flex items-center justify-between hover:border-sky-500/50 transition group"
+              >
+                <div class="flex items-center gap-4">
+                  <img
+                    src="https://placehold.co/100x40/white/blue?text=BCA"
+                    class="h-8 w-auto rounded"
+                    alt="BCA"
+                  />
+                  <div>
+                    <div
+                      class="font-semibold text-white group-hover:text-sky-400 transition"
+                    >
+                      BCA Virtual Account
+                    </div>
+                    <div class="text-xs text-gray-500">Otomatis</div>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <div class="font-bold text-sky-400 price-display">Rp -</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 4: Checkout Button (Desktop) -->
+          <button
+            class="hidden md:block w-full bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-bold py-4 rounded-xl shadow-[0_10px_30px_rgba(14,165,233,0.3)] transition transform hover:-translate-y-1"
+          >
+            <i class="fa-solid fa-cart-shopping mr-2"></i> Beli Sekarang
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Sticky Footer (Harga & Tombol Beli) -->
+    <div
+      class="md:hidden fixed bottom-0 left-0 w-full bg-dark-800 border-t border-white/5 p-4 z-50 glass"
+    >
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <div class="text-xs text-gray-400">Total Pembayaran</div>
+          <div class="text-lg font-bold text-sky-400" id="total-price">
+            Rp 0,-
+          </div>
+        </div>
+        <button
+          class="bg-sky-500 hover:bg-sky-600 text-white font-bold py-2.5 px-6 rounded-lg shadow-lg"
+        >
+          Beli Sekarang
+        </button>
+      </div>
+    </div>
+
+    <!-- Script Sederhana untuk Interaksi Pilihan -->
+    <script>
+      function selectProduct(element) {
+        // Hapus kelas aktif dari semua produk
+        document
+          .querySelectorAll('[onclick="selectProduct(this)"]')
+          .forEach((el) => {
+            el.classList.remove("border-sky-500", "bg-sky-500/10");
+            el.classList.add("bg-dark-900", "border-dark-700");
+          });
+
+        // Tambah kelas aktif ke elemen yang diklik
+        element.classList.remove("bg-dark-900", "border-dark-700");
+        element.classList.add("border-sky-500", "bg-sky-500/10");
+
+        // Ambil harga (Simulasi)
+        const priceText = element.querySelector("p").innerText;
+
+        // Update tampilan harga di Payment Channel (Simulasi saja)
+        document.querySelectorAll(".price-display").forEach((el) => {
+          el.innerText = priceText;
+        });
+
+        // Update Total Price Mobile
+        const totalElement = document.getElementById("total-price");
+        if (totalElement) totalElement.innerText = priceText;
+      }
+
+      function selectPayment(element) {
+        // Hapus kelas aktif dari semua payment
+        document
+          .querySelectorAll('[onclick="selectPayment(this)"]')
+          .forEach((el) => {
+            el.classList.remove("border-sky-500", "bg-sky-500/10");
+            el.classList.add("bg-dark-900", "border-dark-700");
+          });
+
+        // Tambah kelas aktif
+        element.classList.remove("bg-dark-900", "border-dark-700");
+        element.classList.add("border-sky-500", "bg-sky-500/10");
+      }
+    </script>
+  </body>
+</html>
